@@ -23,11 +23,11 @@ try:
 
     # RotatingFileHandler
     max_log_size_mb = 5  # Set your desired maximum log size in megabytes
-    handler = RotatingFileHandler('../logs/bot.log', maxBytes=max_log_size_mb * 1024 * 1024, backupCount=1)
-    handler.setLevel(logging.INFO)
+    file_handler = RotatingFileHandler('../logs/bot.log', maxBytes=max_log_size_mb * 1024 * 1024, backupCount=1)
+    file_handler.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    logging.getLogger().addHandler(handler)
+    file_handler.setFormatter(formatter)
+    logging.getLogger().addHandler(file_handler)
 
     # Get the directory path of the "Commands" folder
     commands_dir = os.path.join(os.path.dirname(__file__), 'Commands')
