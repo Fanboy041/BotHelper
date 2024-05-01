@@ -125,7 +125,64 @@ try:
     def handle_remove_channel_callback(call):
         if 'removeChannelCallback' in handlers:
             handlers['removeChannelCallback'].remove_channel_callback(call, bot)
-            
+    
+    # Show admins button
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_admins')
+    def handle_show_admins_callback(call):
+        if 'showAdminsCallback' in handlers:
+            handlers['showAdminsCallback'].show_admins_callback(call, bot)
+    
+    # Add admin button
+    @bot.callback_query_handler(func=lambda call: call.data == 'add_admin')
+    def handle_add_admin_callback(call):
+        if 'addAdminCallback' in handlers:
+            handlers['addAdminCallback'].add_admin_callback(call, bot)
+
+    # Back to admin menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_admin_menu')
+    def handle_back_to_admin_menu_callback(call):
+        if 'backToAdminMenuCallback' in handlers:
+            handlers['backToAdminMenuCallback'].back_to_admin_menu_callback(call, bot)
+
+    # Remove admin button
+    @bot.callback_query_handler(func=lambda call: call.data == 'remove_admin')
+    def handle_remove_admin_callback(call):
+        if 'removeAdminCallback' in handlers:
+            handlers['removeAdminCallback'].remove_admin_callback(call, bot)
+
+    # Remove admin confirm button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_confirm_'))
+    def handle_remove_admin_confirm_callback(call):
+        if 'removeAdminConfirmCallback' in handlers:
+            handlers['removeAdminConfirmCallback'].remove_admin_confirm_callback(call, bot)
+    
+    # Remove admin back button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
+    def handle_remove_admin_back_callback(call):
+        if 'removeAdminBackCallback' in handlers:
+            handlers['removeAdminBackCallback'].remove_admin_back_callback(call, bot)
+
+    # Remove admin yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_yes_'))
+    def handle_remove_admin_yes_callback(call):
+        if 'removeAdminYesCallback' in handlers:
+            handlers['removeAdminYesCallback'].remove_admin_yes_callback(call, bot)
+
+    # Remove channel confirm button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_confirm_'))
+    def handle_remove_channel_confirm_callback(call):
+        if 'removeChannelConfirmCallback' in handlers:
+            handlers['removeChannelConfirmCallback'].remove_channel_confirm_callback(call, bot)
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_yes_'))
+    def handle_remove_channel_yes_callback(call):
+        if 'removeChannelYesCallback' in handlers:
+            handlers['removeChannelYesCallback'].remove_channel_yes_callback(call,bot)
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_back_'))
+    def handle_remove_channel_back_callback(call):
+        if 'removeChannelBackCallback' in handlers:
+            handlers['removeChannelBackCallback'].remove_channel_back_callback(call,bot)
 
     bot.infinity_polling()
 except KeyboardInterrupt:

@@ -1,6 +1,6 @@
 # addChannelCallback.py
 from telebot import types
-from Database.MongoDB import (save_channel)
+from Database.MongoDB import save_channel
 
 def add_channel_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
@@ -10,7 +10,7 @@ def add_channel_callback(call, bot):
     bot.edit_message_text("Forward a message from your channel", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')
 
     # Set the next state to handle the channel username message
-    bot.register_next_step_handler(call.message, process_channel_username)
+    bot.register_next_step_handler(call.message, process_channel_username, bot)
     
 def process_channel_username(message, bot):
     try:

@@ -1,6 +1,6 @@
 # showChannelCallback.py
 from telebot import types
-from Database.MongoDB import (channel_collection)
+from Database.MongoDB import channel_collection
 
 def show_channel_callback(call, bot):
 
