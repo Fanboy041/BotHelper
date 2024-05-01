@@ -1,0 +1,45 @@
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Telegram bot-specific files
+*.session
+*.log
+*.db
+
+# MongoDB data files
+data/
+*.rdb
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env
+
+# IDE files
+.idea/
+.vscode/
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+
+# Compiled output
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compiled output
+*.swp
+*.swo
