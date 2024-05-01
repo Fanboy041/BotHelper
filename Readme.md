@@ -39,14 +39,6 @@ Also these functions to save the data of owner, admin, user, channels and groups
 
 - save_group(full_name, username, chat_id)
 
-to let you know the structure of the objects this is an example to the owner schema:
-
-`owner_schema = {
-    "full_name": str,
-    "username": str,
-    "chat_id": int
-}`
-
 Finally your tasks will be adding new call back queries to the code to finish the main reason of this bot:
 
 1- sending custom messages (with or without inline keyboard) to specific or all channels and groups
@@ -58,3 +50,11 @@ Finally your tasks will be adding new call back queries to the code to finish th
 4- add ban for bad words
 
 Note: sending messages it's a role for owner and admins only
+
+to let you know the structure of the objects this is an example to the owner schema:
+
+```owner_schema = {
+    "full_name": str,
+    "username": str,
+    "chat_id": int
+}```
