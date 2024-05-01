@@ -41,11 +41,11 @@ Also these functions to save the data of owner, admin, user, channels and groups
 
 to let you know the structure of the objects this is an example to the owner schema:
 
-```owner_schema = {
+`owner_schema = {
     "full_name": str,
     "username": str,
     "chat_id": int
-}```
+}`
 
 Finally your tasks will be adding new call back queries to the code to finish the main reason of this bot:
 
