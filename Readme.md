@@ -53,8 +53,10 @@ Note: sending messages it's a role for owner and admins only
 
 to let you know the structure of the objects this is an example to the owner schema:
 
-```owner_schema = {
+```
+owner_schema = {
     "full_name": str,
     "username": str,
     "chat_id": int
-}```
+}
+```
