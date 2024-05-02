@@ -47,16 +47,13 @@ try:
             modules[module_name] = module
             # Now you can access the functions or classes in the imported module
 
-    # Logging commands
-    # print(modules)
-
-    # Get the directory path of the "Commands" folder
+    # Get the directory path of the "Features" folder
     handlers_dir = os.path.join(os.path.dirname(__file__), 'Handlers')
 
     # Create an empty dictionary to store the module objects
     handlers = {}
 
-    # Loop through all the files in the "Commands" folder
+    # Loop through all the files in the "Handlers" folder
     for filename in os.listdir(handlers_dir):
         # Check if the file is a Python script (ends with .py)
         if filename.endswith('.py') and filename != '__init__.py':
@@ -68,9 +65,29 @@ try:
             handlers[handler_name] = handler
             # Now you can access the functions or classes in the imported module
 
-    # Logging callbacks
-    # print(handlers)
+    # Get the directory path of the "Features" folder
+    features_dir = os.path.join(os.path.dirname(__file__), 'Features')
 
+    # Create an empty dictionary to store the module objects
+    features = {}
+
+    # Loop through all the files in the "Features" folder
+    for filename in os.listdir(features_dir):
+        # Check if the file is a Python script (ends with .py)
+        if filename.endswith('.py') and filename != '__init__.py':
+            # Get the module name without the .py extension
+            feature_name = os.path.splitext(filename)[0]
+
+            # Import the module dynamically
+            feature = importlib.import_module(f'Features.{feature_name}')
+            features[feature_name] = feature
+            # Now you can access the functions or classes in the imported module
+
+    print(feature_name)
+    @bot.message_handler(content_types=['new_chat_members'])
+    def handle_delete_join_message(message):
+        if 'muteJoinedGroupMembers' in features:
+            features['muteJoinedGroupMembers'].delete_join_message(message, bot)
 
     # Start command
     @bot.message_handler(commands=['start'])
@@ -96,7 +113,7 @@ try:
         if 'backToSettingsMenuCallback' in handlers:
             handlers['backToSettingsMenuCallback'].back_to_settings_menu_callback(call, bot)
 
-    # Channel button
+    # Channels button
     @bot.callback_query_handler(func=lambda call: call.data == 'channel')
     def handle_channel_callback(call):
         if 'channelCallback' in handlers:
@@ -174,15 +191,25 @@ try:
         if 'removeChannelConfirmCallback' in handlers:
             handlers['removeChannelConfirmCallback'].remove_channel_confirm_callback(call, bot)
 
+    # Remove channel yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_yes_'))
     def handle_remove_channel_yes_callback(call):
         if 'removeChannelYesCallback' in handlers:
             handlers['removeChannelYesCallback'].remove_channel_yes_callback(call,bot)
 
+    # Remove channel back button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_back_'))
     def handle_remove_channel_back_callback(call):
         if 'removeChannelBackCallback' in handlers:
             handlers['removeChannelBackCallback'].remove_channel_back_callback(call,bot)
+
+    # Groups button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('groups'))
+    def handle_group_callback(call):
+        if 'groupsCallback' in handlers:
+            handlers['groupsCallback'].group_callback(call, bot)
+
+
 
     bot.infinity_polling()
 except KeyboardInterrupt:

@@ -15,6 +15,7 @@ def settings_command(message, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     admins_button = types.InlineKeyboardButton("Bot Admins", callback_data='admins')
     channel_button = types.InlineKeyboardButton("Channel", callback_data='channel')
-    keyboard.add(admins_button, channel_button)
+    groups_button = types.InlineKeyboardButton("Groups", callback_data='groups')
+    keyboard.add(admins_button, channel_button, groups_button)
 
     bot.send_message(message.chat.id, "📊 Settings:", reply_markup=keyboard)
