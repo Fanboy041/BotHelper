@@ -15,4 +15,4 @@ def remove_channel_callback(call, bot):
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channels_menu')
     keyboard.add(back_button)
 
-    bot.edit_message_text("Select an channel to remove:", call.message.chat.id, call.message.message_id, reply_markup=keyboard)
+    bot.edit_message_text("Select a channel to remove:", call.message.chat.id, call.message.message_id, reply_markup=keyboard)

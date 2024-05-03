@@ -7,7 +7,7 @@ def channels_menu_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     add_cahnnel = types.InlineKeyboardButton("Add Channel 🔈", callback_data='add_channel')
     remove_cahnnel = types.InlineKeyboardButton("Remove Channel ✖️", callback_data='remove_channel')
-    show_channel = types.InlineKeyboardButton("Show Channels 📝", callback_data='show_channel')
+    show_channel = types.InlineKeyboardButton("Show Channels 📝", callback_data='show_channels')
     back_to_settings_menu = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_settings_menu')
     keyboard.add(add_cahnnel, remove_cahnnel, show_channel, back_to_settings_menu)
 
