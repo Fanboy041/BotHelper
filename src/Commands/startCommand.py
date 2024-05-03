@@ -1,6 +1,6 @@
 # startCommand.py
 from Database.MongoDB import (
-    owner_collection, user_collection, save_owner, save_user
+    owner_collection, user_collection, save_owner, save_user, get_owner
 )
 
 def send_welcome(message, bot):
@@ -23,11 +23,12 @@ def send_welcome(message, bot):
             bot.send_message(message.chat.id, f"Welcome <b>{full_name}</b>\nYou are my owner from now on", parse_mode='HTML')
 
         else:
-            # Counting the number of the users
-            total_users = user_collection.count_documents({}) + 1
-            
-            # Save the user info in the database
-            save_user(full_name, username, chat_id, total_users)
+            if message.chat.id != get_owner(message.chat.id)['chat_id']:
+                # Counting the number of the users
+                total_users = user_collection.count_documents({}) + 1
+                
+                # Save the user info in the database
+                save_user(full_name, username, chat_id, total_users)
 
             bot.send_message(message.chat.id, "هلا بالغالي")
     else:
