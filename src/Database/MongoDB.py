@@ -88,20 +88,31 @@ def get_owner():
     return owner_collection.find_one()
 
 # Create a function to get the admin information from the database
-def get_admin():
-    return admin_collection.find_one()
+def get_admin(chat_id):
+    return admin_collection.find_one({"chat_id": chat_id})
 
 # Create a function to get the user information from the database
-def get_user():
-    return user_collection.find_one()
+def get_user(chat_id):
+    return user_collection.find_one({"chat_id": chat_id})
+
+# Create a function to get all admins information from the database
+def get_admins():
+    return admin_collection.find()
+
+# Create a function to get all users information from the database
+def get_users():
+    return user_collection.find()
 
 # Create a function to get the channel information from the database
 def get_channel():
     return channel_collection.find_one()
 
 # Create a function to get the group information from the database
-def get_group():
-    return group_collection.find_one()
+def get_group(chat_id):
+    return group_collection.find_one({"chat_id": chat_id})
+
+def get_groups():
+    return group_collection.find()
 
 # Create a function to save the owner information to the database
 def save_owner(full_name, username, chat_id):
@@ -150,6 +161,11 @@ def save_user(full_name, username, chat_id, total_users):
     if user_existed:
         user_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
         
+        owner = get_owner()
+        logging.info(owner)
+        user = get_user(chat_id)
+        logging.info(user)
+        
     else:
         user_collection.insert_one(user_info)
         # Send message to owner when a new member joined
@@ -157,12 +173,12 @@ def save_user(full_name, username, chat_id, total_users):
         # Get owner from collection
         owner = get_owner()
         logging.info(owner)
-        user = get_user()
+        user = get_user(chat_id)
         logging.info(user)
         
         # Get chat ID from owner document
         chat_id = owner['chat_id']
-        if chat_id != user['chat_id']:
+        if chat_id != users['chat_id']:
             bot.send_message(chat_id, f"🔥 New member:\n\n👤 <b>{full_name}</b>\n\nTotal users: {total_users}", parse_mode='HTML' )
         
 
