@@ -84,8 +84,8 @@ channel_collection = client.managing.channel_collection
 group_collection = client.managing.group_collection
 
 # Create a function to get the owner information from the database
-def get_owner(chat_id):
-    return owner_collection.find_one({"chat_id": chat_id})
+def get_owner():
+    return owner_collection.find_one()
 
 # Create a function to get the admin information from the database
 def get_admin(chat_id):
@@ -164,7 +164,7 @@ def save_user(full_name, username, chat_id, total_users):
     if user_existed:
         user_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
         
-        owner = get_owner(chat_id)
+        owner = get_owner()
         logging.info(owner)
         user = get_user(chat_id)
         logging.info(user)
@@ -174,7 +174,7 @@ def save_user(full_name, username, chat_id, total_users):
         # Send message to owner when a new member joined
 
         # Get owner from collection
-        owner = get_owner(chat_id)
+        owner = get_owner()
         logging.info(owner)
         user = get_user(chat_id)
         logging.info(user)

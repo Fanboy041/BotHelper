@@ -5,7 +5,7 @@ from Database.MongoDB import get_users
 def show_users_callback(call, bot):
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_user_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_users_menu')
     keyboard.add(back_button)
 
     # Get all users info from the collection and send them as a message to the chat
