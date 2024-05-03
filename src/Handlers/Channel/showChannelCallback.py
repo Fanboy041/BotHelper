@@ -8,7 +8,7 @@ def show_channel_callback(call, bot):
     if channel_list:
         # Add a back button to go back
         keyboard = types.InlineKeyboardMarkup(row_width=1)
-        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channel_menu')
+        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channels_menu')
         keyboard.add(back_button)
         
         # Display the channel username

@@ -4,7 +4,7 @@ from Database.MongoDB import save_channel
 
 def add_channel_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channel_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channels_menu')
     keyboard.add(back_button)
 
     bot.edit_message_text("Forward a message from your channel", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')

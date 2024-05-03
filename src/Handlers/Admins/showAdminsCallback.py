@@ -5,7 +5,7 @@ from Database.MongoDB import admin_collection
 def show_admins_callback(call, bot):
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admin_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admins_menu')
     keyboard.add(back_button)
 
     # Get all admins info from the collection and send them as a message to the chat
