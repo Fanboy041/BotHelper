@@ -211,7 +211,7 @@ try:
             handlers['removeChannelCallback'].remove_channel_callback(call, bot)
 
     # Groups button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('groups_menu'))
+    @bot.callback_query_handler(func=lambda call: call.data == 'groups_menu')
     def handle_group_callback(call):
         if 'groupsMenuCallback' in handlers:
             handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
@@ -234,23 +234,23 @@ try:
         if 'groupsMenuCallback' in handlers:
             handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
 
-    # Users button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('users'))
-    def handle_user_callback(call):
-        if 'backToUserMenuCallback' in handlers:
-            handlers['backToUserMenuCallback'].back_to_user_menu_callback(call, bot)
-
     # Show users button
     @bot.callback_query_handler(func=lambda call: call.data == 'show_users')
     def handle_show_users_callback(call):
         if 'showUsersCallback' in handlers:
             handlers['showUsersCallback'].show_users_callback(call, bot)
 
+    # User menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'users_menu')
+    def handle_user_menu_callback(call):
+        if 'usersMenuCallback' in handlers:
+            handlers['usersMenuCallback'].users_menu_callback(call, bot)
+
     # Back to user menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_user_menu')
-    def handle_back_to_user_menu_callback(call):
-        if 'backToUserMenuCallback' in handlers:
-            handlers['backToUserMenuCallback'].back_to_user_menu_callback(call, bot)
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_users_menu')
+    def handle_user_menu_callback(call):
+        if 'usersMenuCallback' in handlers:
+            handlers['usersMenuCallback'].users_menu_callback(call, bot)
 
     # Remove user button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
@@ -269,6 +269,12 @@ try:
     def handle_remove_user_yes_callback(call):
         if 'removeUserYesCallback' in handlers:
             handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
+
+    # Remove user back button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
+    def handle_remove_user_callback(call):
+        if 'removeUserCallback' in handlers:
+            handlers['removeUserCallback'].remove_user_callback(call, bot)
 
     # @bot.message_handler(content_types=['text'])
 

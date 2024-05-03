@@ -23,7 +23,9 @@ def send_welcome(message, bot):
             bot.send_message(message.chat.id, f"Welcome <b>{full_name}</b>\nYou are my owner from now on", parse_mode='HTML')
 
         else:
-            if message.chat.id != get_owner(message.chat.id)['chat_id']:
+            user_id = message.chat.id
+            owner = get_owner()
+            if user_id != owner['chat_id']:
                 # Counting the number of the users
                 total_users = user_collection.count_documents({}) + 1
                 

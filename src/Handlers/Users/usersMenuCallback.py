@@ -1,7 +1,7 @@
 # userCallback.py
 from telebot import types
 
-def back_to_user_menu_callback(call, bot):
+def users_menu_callback(call, bot):
 
     # Initial message with inline keyboard
     keyboard = types.InlineKeyboardMarkup(row_width=2)
