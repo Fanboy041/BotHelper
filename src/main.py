@@ -16,10 +16,10 @@ load_dotenv()
 bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
 
 try:
-    logging.info("Main script runs successfully, Bot is working")
-
     # Logging configuration
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+    logging.info("Main script runs successfully, Bot is working")
 
     # RotatingFileHandler
     max_log_size_mb = 5  # Set your desired maximum log size in megabytes
@@ -86,7 +86,6 @@ try:
             features[feature_name] = feature
             # Now you can access the functions or classes in the imported module
 
-    print(feature_name)
     @bot.message_handler(content_types=['new_chat_members'])
     def handle_add_group_chat_id(message):
         if 'addGroupChatId' in features:

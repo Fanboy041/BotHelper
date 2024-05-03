@@ -178,7 +178,7 @@ def save_user(full_name, username, chat_id, total_users):
         
         # Get chat ID from owner document
         chat_id = owner['chat_id']
-        if chat_id != users['chat_id']:
+        if chat_id != user['chat_id']:
             bot.send_message(chat_id, f"🔥 New member:\n\n👤 <b>{full_name}</b>\n\nTotal users: {total_users}", parse_mode='HTML' )
         
 
