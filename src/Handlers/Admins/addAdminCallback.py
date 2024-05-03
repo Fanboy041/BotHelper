@@ -1,12 +1,11 @@
 # addAdminCallback.py
 from telebot import types
 from Database.MongoDB import save_admin
-from Handlers.Admins.backToAdminMenuCallback import back_to_admin_menu_callback
 
 def add_admin_callback(call, bot):
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admin_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admins_menu')
     keyboard.add(back_button)
 
     bot.edit_message_text("⏩ Forward a message from the user you want to add as an admin.", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')

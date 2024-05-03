@@ -109,10 +109,10 @@ try:
             modules['settingsCommand'].settings_command(message, bot)
 
     # Admins button
-    @bot.callback_query_handler(func=lambda call: call.data == 'admins')
+    @bot.callback_query_handler(func=lambda call: call.data == 'admins_menu')
     def handle_admins_callback(call):
-        if 'adminsCallback' in handlers:
-            handlers['adminsCallback'].admins_callback(call, bot)
+        if 'adminsMenuCallback' in handlers:
+            handlers['adminsMenuCallback'].admins_callback(call, bot)
 
     # Back to settings menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
@@ -121,10 +121,10 @@ try:
             handlers['backToSettingsMenuCallback'].back_to_settings_menu_callback(call, bot)
 
     # Channels button
-    @bot.callback_query_handler(func=lambda call: call.data == 'channel')
+    @bot.callback_query_handler(func=lambda call: call.data == 'channels_menu')
     def handle_channel_callback(call):
-        if 'channelCallback' in handlers:
-            handlers['channelCallback'].channel_callback(call, bot)
+        if 'channelsMenuCallback' in handlers:
+            handlers['channelsMenuCallback'].channels_menu_callback(call, bot)
     
     # Add chnnel button
     @bot.callback_query_handler(func=lambda call: call.data == 'add_channel')
@@ -139,10 +139,10 @@ try:
             handlers['showChannelCallback'].show_channel_callback(call, bot)
 
     # Back to channel menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channel_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
     def handle_back_to_channel_menu_callback(call):
-        if 'backToChannelMenuCallback' in handlers:
-            handlers['backToChannelMenuCallback'].back_to_channel_menu_callback(call, bot)
+        if 'channelsMenuCallback' in handlers:
+            handlers['channelsMenuCallback'].channels_menu_callback(call, bot)
 
     # Remove channel button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_channel')
@@ -163,10 +163,10 @@ try:
             handlers['addAdminCallback'].add_admin_callback(call, bot)
 
     # Back to admin menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_admin_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_admins_menu')
     def handle_back_to_admin_menu_callback(call):
-        if 'backToAdminMenuCallback' in handlers:
-            handlers['backToAdminMenuCallback'].back_to_admin_menu_callback(call, bot)
+        if 'adminsMenuCallback' in handlers:
+            handlers['adminsMenuCallback'].admins_callback(call, bot)
 
     # Remove admin button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_admin')
@@ -183,8 +183,8 @@ try:
     # Remove admin back button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
     def handle_remove_admin_back_callback(call):
-        if 'removeAdminBackCallback' in handlers:
-            handlers['removeAdminBackCallback'].remove_admin_back_callback(call, bot)
+        if 'removeAdminCallback' in handlers:
+            handlers['removeAdminCallback'].remove_admin_callback(call, bot)
 
     # Remove admin yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_yes_'))
@@ -207,14 +207,14 @@ try:
     # Remove channel back button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_back_'))
     def handle_remove_channel_back_callback(call):
-        if 'removeChannelBackCallback' in handlers:
-            handlers['removeChannelBackCallback'].remove_channel_back_callback(call,bot)
+        if 'removeChannelCallback' in handlers:
+            handlers['removeChannelCallback'].remove_channel_callback(call, bot)
 
     # Groups button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('groups'))
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('groups_menu'))
     def handle_group_callback(call):
-        if 'backToGroupMenuCallback' in handlers:
-            handlers['backToGroupMenuCallback'].back_to_group_menu_callback(call, bot)
+        if 'groupsMenuCallback' in handlers:
+            handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
 
     # Show groups button
     @bot.callback_query_handler(func=lambda call: call.data == 'show_groups')
@@ -231,8 +231,8 @@ try:
     # Back to group menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_group_menu')
     def handle_back_to_group_menu_callback(call):
-        if 'backToGroupMenuCallback' in handlers:
-            handlers['backToGroupMenuCallback'].back_to_group_menu_callback(call, bot)
+        if 'groupsMenuCallback' in handlers:
+            handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
 
     # Users button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('users'))

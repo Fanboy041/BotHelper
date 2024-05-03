@@ -1,7 +1,7 @@
 # channelCallback.py
 from telebot import types
 
-def channel_callback(call, bot):
+def channels_menu_callback(call, bot):
 
     # Initial message with inline keyboard
     keyboard = types.InlineKeyboardMarkup(row_width=2)

@@ -11,7 +11,7 @@ def remove_admin_callback(call, bot):
 
 
     # Add a "Back" button
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admin_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admins_menu')
     keyboard.add(back_button)
 
     bot.edit_message_text("Select an admin to remove:", call.message.chat.id, call.message.message_id, reply_markup=keyboard)
