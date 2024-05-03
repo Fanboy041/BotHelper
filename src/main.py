@@ -222,11 +222,53 @@ try:
         if 'showGroupsCallback' in handlers:
             handlers['showGroupsCallback'].show_groups_callback(call, bot)
 
-     # Back to admin menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
+    # Add group button
+    @bot.callback_query_handler(func=lambda call: call.data == 'add_group')
+    def handle_add_group_callback(call):
+        if 'addGroupCallback' in handlers:
+            handlers['addGroupCallback'].add_group_callback(call, bot)
+
+    # Back to group menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_group_menu')
     def handle_back_to_group_menu_callback(call):
         if 'groupsMenuCallback' in handlers:
             handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
+
+    # Users button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('users'))
+    def handle_user_callback(call):
+        if 'backToUserMenuCallback' in handlers:
+            handlers['backToUserMenuCallback'].back_to_user_menu_callback(call, bot)
+
+    # Show users button
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_users')
+    def handle_show_users_callback(call):
+        if 'showUsersCallback' in handlers:
+            handlers['showUsersCallback'].show_users_callback(call, bot)
+
+    # Back to user menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_user_menu')
+    def handle_back_to_user_menu_callback(call):
+        if 'backToUserMenuCallback' in handlers:
+            handlers['backToUserMenuCallback'].back_to_user_menu_callback(call, bot)
+
+    # Remove user button
+    @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
+    def handle_remove_user_callback(call):
+        if 'removeUserCallback' in handlers:
+            handlers['removeUserCallback'].remove_user_callback(call, bot)
+
+    # Remove admin confirm button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_confirm_'))
+    def handle_remove_user_confirm_callback(call):
+        if 'removeUserConfirmCallback' in handlers:
+            handlers['removeUserConfirmCallback'].remove_user_confirm_callback(call, bot)
+
+    # Remove admin yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_yes_'))
+    def handle_remove_user_yes_callback(call):
+        if 'removeUserYesCallback' in handlers:
+            handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
 
     # @bot.message_handler(content_types=['text'])
 

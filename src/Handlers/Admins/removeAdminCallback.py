@@ -1,11 +1,10 @@
 # removeAdminCallback.py
 from telebot import types
-from Database.MongoDB import admin_collection
+from Database.MongoDB import get_admins
 
 def remove_admin_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    admins = admin_collection.find()
-    admin = admin_collection.find_one()
+    admins = get_admins()
     for admin in admins:
         button = types.InlineKeyboardButton(f"{admin['full_name']}", callback_data=f'remove_admin_confirm_{admin["chat_id"]}')
         keyboard.add(button)
