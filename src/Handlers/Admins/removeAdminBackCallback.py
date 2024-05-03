@@ -1,5 +1,5 @@
 # removeAdminBackCallback.py
-from Handlers.removeAdminCallback import remove_admin_callback
+from Handlers.Admins.removeAdminCallback import remove_admin_callback
 
 def remove_admin_back_callback(call, bot):
         # Edit the message to show the "Select an admin ID to remove:" message
