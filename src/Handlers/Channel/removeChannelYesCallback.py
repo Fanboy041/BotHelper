@@ -1,6 +1,6 @@
 # removeChannelYesCallback.py
 from Database.MongoDB import channel_collection
-from Handlers.removeChannelCallback import remove_channel_callback
+from Handlers.Channel.removeChannelCallback import remove_channel_callback
 
 def remove_channel_yes_callback(call, bot):
     parts = call.data.split('_')

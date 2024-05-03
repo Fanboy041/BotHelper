@@ -1,6 +1,6 @@
 # removeAdminYesCallback.py
 from Database.MongoDB import admin_collection
-from Handlers.removeAdminCallback import remove_admin_callback
+from Handlers.Admins.removeAdminCallback import remove_admin_callback
 
 def remove_admin_yes_callback(call, bot):
     parts = call.data.split('_')

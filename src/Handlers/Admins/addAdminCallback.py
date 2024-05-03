@@ -1,7 +1,7 @@
 # addAdminCallback.py
 from telebot import types
 from Database.MongoDB import save_admin
-from Handlers.backToAdminMenuCallback import back_to_admin_menu_callback
+from Handlers.Admins.backToAdminMenuCallback import back_to_admin_menu_callback
 
 def add_admin_callback(call, bot):
     # Add a "Back" button
