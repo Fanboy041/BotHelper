@@ -2,14 +2,14 @@
 import telebot, logging
 import os
 import importlib
-from telebot import types, util
+# from telebot import types, util
 from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
 # from Commands.startCommand import send_welcome
-from Database.MongoDB import (
-    get_owner, get_admin, get_user, get_channel, get_group,
-    save_owner, save_user
-)
+# from Database.MongoDB import (
+#     get_owner, get_admin, get_user, get_channel, get_group,
+#     save_owner, save_user
+# )
 
 load_dotenv()
 
@@ -23,7 +23,7 @@ try:
 
     # RotatingFileHandler
     max_log_size_mb = 5  # Set your desired maximum log size in megabytes
-    file_handler = RotatingFileHandler('../logs/bot.log', maxBytes=max_log_size_mb * 1024 * 1024, backupCount=1)
+    file_handler = RotatingFileHandler('./bot.log', maxBytes=max_log_size_mb * 1024 * 1024, backupCount=1)
     file_handler.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
@@ -36,11 +36,11 @@ try:
     modules = {}
 
     # Loop through all the files in the "Commands" folder
-    for filename in os.listdir(commands_dir):
+    for foldername in os.listdir(commands_dir):
         # Check if the file is a Python script (ends with .py)
-        if filename.endswith('.py') and filename != '__init__.py':
+        if foldername.endswith('.py') and foldername != '__init__.py':
             # Get the module name without the .py extension
-            module_name = os.path.splitext(filename)[0]
+            module_name = os.path.splitext(foldername)[0]
 
             # Import the module dynamically
             module = importlib.import_module(f'Commands.{module_name}')
@@ -54,16 +54,19 @@ try:
     handlers = {}
 
     # Loop through all the files in the "Handlers" folder
-    for filename in os.listdir(handlers_dir):
-        # Check if the file is a Python script (ends with .py)
-        if filename.endswith('.py') and filename != '__init__.py':
-            # Get the module name without the .py extension
-            handler_name = os.path.splitext(filename)[0]
+    for foldername in os.listdir(handlers_dir):
+        if foldername != '__init__.py':
+            # Loop through all the folders in the "Handlers" folder
+            for filename in os.listdir(os.path.join(os.path.dirname(__file__), f'Handlers\\{foldername}')):
+                 # Check if the file is a Python script (ends with .py)
+                if filename.endswith('.py'):
+                    # Get the module name without the .py extension
+                    handler_name = os.path.splitext(filename)[0]
 
-            # Import the module dynamically
-            handler = importlib.import_module(f'Handlers.{handler_name}')
-            handlers[handler_name] = handler
-            # Now you can access the functions or classes in the imported module
+                    # Import the module dynamically
+                    handler = importlib.import_module(f'Handlers.{foldername}.{handler_name}')
+                    handlers[handler_name] = handler
+                # Now you can access the functions or classes in the imported module
 
     # Get the directory path of the "Features" folder
     features_dir = os.path.join(os.path.dirname(__file__), 'Features')
@@ -72,11 +75,11 @@ try:
     features = {}
 
     # Loop through all the files in the "Features" folder
-    for filename in os.listdir(features_dir):
+    for foldername in os.listdir(features_dir):
         # Check if the file is a Python script (ends with .py)
-        if filename.endswith('.py') and filename != '__init__.py':
+        if foldername.endswith('.py') and foldername != '__init__.py':
             # Get the module name without the .py extension
-            feature_name = os.path.splitext(filename)[0]
+            feature_name = os.path.splitext(foldername)[0]
 
             # Import the module dynamically
             feature = importlib.import_module(f'Features.{feature_name}')
@@ -84,6 +87,11 @@ try:
             # Now you can access the functions or classes in the imported module
 
     print(feature_name)
+    @bot.message_handler(content_types=['new_chat_members'])
+    def handle_add_group_chat_id(message):
+        if 'addGroupChatId' in features:
+            features['addGroupChatId'].add_group_chat_id(message, bot)
+
     @bot.message_handler(content_types=['new_chat_members'])
     def handle_delete_join_message(message):
         if 'muteJoinedGroupMembers' in features:
@@ -206,10 +214,22 @@ try:
     # Groups button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('groups'))
     def handle_group_callback(call):
-        if 'groupsCallback' in handlers:
-            handlers['groupsCallback'].group_callback(call, bot)
+        if 'backToGroupCallback' in handlers:
+            handlers['backToGroupCallback'].back_to_group_menu_callback(call, bot)
 
+    # Show groups button
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_groups')
+    def handle_show_groups_callback(call):
+        if 'showGroupsCallback' in handlers:
+            handlers['showGroupsCallback'].show_groups_callback(call, bot)
 
+     # Back to admin menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_group_menu')
+    def handle_back_to_group_menu_callback(call):
+        if 'backToGroupMenuCallback' in handlers:
+            handlers['backToGroupMenuCallback'].back_to_group_menu_callback(call, bot)
+
+    # @bot.message_handler(content_types=['text'])
 
     bot.infinity_polling()
 except KeyboardInterrupt:
