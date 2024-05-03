@@ -84,8 +84,8 @@ channel_collection = client.managing.channel_collection
 group_collection = client.managing.group_collection
 
 # Create a function to get the owner information from the database
-def get_owner():
-    return owner_collection.find_one()
+def get_owner(chat_id):
+    return owner_collection.find_one({"chat_id": chat_id})
 
 # Create a function to get the admin information from the database
 def get_admin(chat_id):
@@ -114,6 +114,9 @@ def get_group(chat_id):
 def get_groups():
     return group_collection.find()
 
+def delete_user(chat_id):
+    return user_collection.delete_one({'chat_id': chat_id})
+
 # Create a function to save the owner information to the database
 def save_owner(full_name, username, chat_id):
     owner_info = {
@@ -137,7 +140,7 @@ def save_admin(full_name, username, chat_id):
         "chat_id": chat_id
     }
     admin_existed = admin_collection.find_one({"chat_id": chat_id}) is not None
-    owner = get_owner()
+    owner = get_owner(chat_id)
     chat_id = owner['chat_id']
     
     if admin_existed:
@@ -161,7 +164,7 @@ def save_user(full_name, username, chat_id, total_users):
     if user_existed:
         user_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
         
-        owner = get_owner()
+        owner = get_owner(chat_id)
         logging.info(owner)
         user = get_user(chat_id)
         logging.info(user)
@@ -171,7 +174,7 @@ def save_user(full_name, username, chat_id, total_users):
         # Send message to owner when a new member joined
 
         # Get owner from collection
-        owner = get_owner()
+        owner = get_owner(chat_id)
         logging.info(owner)
         user = get_user(chat_id)
         logging.info(user)
