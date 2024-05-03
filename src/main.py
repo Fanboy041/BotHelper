@@ -214,14 +214,20 @@ try:
     # Groups button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('groups'))
     def handle_group_callback(call):
-        if 'backToGroupCallback' in handlers:
-            handlers['backToGroupCallback'].back_to_group_menu_callback(call, bot)
+        if 'backToGroupMenuCallback' in handlers:
+            handlers['backToGroupMenuCallback'].back_to_group_menu_callback(call, bot)
 
     # Show groups button
     @bot.callback_query_handler(func=lambda call: call.data == 'show_groups')
     def handle_show_groups_callback(call):
         if 'showGroupsCallback' in handlers:
             handlers['showGroupsCallback'].show_groups_callback(call, bot)
+
+    # Add group button
+    @bot.callback_query_handler(func=lambda call: call.data == 'add_group')
+    def handle_add_group_callback(call):
+        if 'addGroupCallback' in handlers:
+            handlers['addGroupCallback'].add_group_callback(call, bot)
 
      # Back to admin menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_group_menu')
