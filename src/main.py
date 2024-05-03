@@ -133,10 +133,10 @@ try:
             handlers['addChannelCallback'].add_channel_callback(call, bot)
 
     # Show channel button
-    @bot.callback_query_handler(func=lambda call: call.data == 'show_channel')
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_channels')
     def handle_show_channel_callback(call):
-        if 'showChannelCallback' in handlers:
-            handlers['showChannelCallback'].show_channel_callback(call, bot)
+        if 'showChannelsCallback' in handlers:
+            handlers['showChannelsCallback'].show_channels_callback(call, bot)
 
     # Back to channel menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
@@ -229,7 +229,7 @@ try:
             handlers['addGroupCallback'].add_group_callback(call, bot)
 
     # Back to group menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_group_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
     def handle_back_to_group_menu_callback(call):
         if 'groupsMenuCallback' in handlers:
             handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
@@ -258,13 +258,13 @@ try:
         if 'removeUserCallback' in handlers:
             handlers['removeUserCallback'].remove_user_callback(call, bot)
 
-    # Remove admin confirm button
+    # Remove user confirm button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_confirm_'))
     def handle_remove_user_confirm_callback(call):
         if 'removeUserConfirmCallback' in handlers:
             handlers['removeUserConfirmCallback'].remove_user_confirm_callback(call, bot)
 
-    # Remove admin yes button
+    # Remove user yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_yes_'))
     def handle_remove_user_yes_callback(call):
         if 'removeUserYesCallback' in handlers:
@@ -275,6 +275,30 @@ try:
     def handle_remove_user_callback(call):
         if 'removeUserCallback' in handlers:
             handlers['removeUserCallback'].remove_user_callback(call, bot)
+
+    # Remove group button
+    @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
+    def handle_remove_user_callback(call):
+        if 'removeGroupCallback' in handlers:
+            handlers['removeGroupCallback'].remove_group_callback(call, bot)
+
+    # Remove group confirm button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_confirm_'))
+    def handle_remove_user_confirm_callback(call):
+        if 'removeGroupConfirmCallback' in handlers:
+            handlers['removeGroupConfirmCallback'].remove_group_confirm_callback(call, bot)
+
+    # Remove group yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_yes_'))
+    def handle_remove_user_yes_callback(call):
+        if 'removeGroupYesCallback' in handlers:
+            handlers['removeGroupYesCallback'].remove_group_yes_callback(call, bot)
+
+    # Remove group back button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
+    def handle_remove_user_callback(call):
+        if 'removeGroupCallback' in handlers:
+            handlers['removeGroupCallback'].remove_group_callback(call, bot)
 
     # @bot.message_handler(content_types=['text'])
 

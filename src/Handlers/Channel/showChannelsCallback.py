@@ -2,7 +2,7 @@
 from telebot import types
 from Database.MongoDB import channel_collection
 
-def show_channel_callback(call, bot):
+def show_channels_callback(call, bot):
 
     channel_list = channel_collection.find_one()
     if channel_list:
