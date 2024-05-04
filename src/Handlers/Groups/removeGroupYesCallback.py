@@ -1,5 +1,5 @@
 # removeGroupYesCallback.py
-from Database.MongoDB import group_collection
+from Database.MongoDB import group_collection, delete_group
 from Handlers.Groups.removeGroupCallback import remove_group_callback
 
 def remove_group_yes_callback(call, bot):
@@ -11,7 +11,7 @@ def remove_group_yes_callback(call, bot):
         if action == 'yes':
             # If the callback was yes, remove the group from group collection
             if group_collection.find_one({'chat_id': group_id}):
-                group_collection.delete_one({'chat_id': group_id})
+                delete_group(group_id)
                 remove_group_callback(call, bot)
                 bot.send_message(call.message.chat.id, f"group with ID {group_id} removed successfully.")
             else:
