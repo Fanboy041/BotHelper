@@ -1,6 +1,6 @@
 # removeGroupCallback.py
 from telebot import types
-from Database.MongoDB import (get_group, group_collection)
+from Database.MongoDB import group_collection
 
 def remove_group_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=1)

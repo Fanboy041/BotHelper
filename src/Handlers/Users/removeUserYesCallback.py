@@ -10,7 +10,7 @@ def remove_user_yes_callback(call, bot):
 
         if action == 'yes':
             # If the callback was yes, remove the user from user collection
-            if get_user( user_id):
+            if get_user(                                                                          user_id):
                 delete_user(user_id)
                 remove_user_callback(call, bot)
                 bot.send_message(call.message.chat.id, f"user with ID {user_id} removed successfully.")

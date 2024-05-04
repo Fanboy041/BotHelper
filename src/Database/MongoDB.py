@@ -114,6 +114,9 @@ def get_group(chat_id):
 def get_groups():
     return group_collection.find()
 
+def delete_group(chat_id):
+    return group_collection.delete_one({'chat_id': chat_id})
+
 def delete_user(chat_id):
     return user_collection.delete_one({'chat_id': chat_id})
 
