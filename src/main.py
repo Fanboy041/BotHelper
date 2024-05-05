@@ -278,25 +278,25 @@ try:
 
     # Remove group button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
-    def handle_remove_user_callback(call):
+    def handle_remove_group_callback(call):
         if 'removeGroupCallback' in handlers:
             handlers['removeGroupCallback'].remove_group_callback(call, bot)
 
     # Remove group confirm button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_confirm_'))
-    def handle_remove_user_confirm_callback(call):
+    def handle_remove_group_confirm_callback(call):
         if 'removeGroupConfirmCallback' in handlers:
             handlers['removeGroupConfirmCallback'].remove_group_confirm_callback(call, bot)
 
     # Remove group yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_yes_'))
-    def handle_remove_user_yes_callback(call):
+    def handle_remove_group_yes_callback(call):
         if 'removeGroupYesCallback' in handlers:
             handlers['removeGroupYesCallback'].remove_group_yes_callback(call, bot)
 
     # Remove group back button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
-    def handle_remove_user_callback(call):
+    def handle_remove_group_callback(call):
         if 'removeGroupCallback' in handlers:
             handlers['removeGroupCallback'].remove_group_callback(call, bot)
 
