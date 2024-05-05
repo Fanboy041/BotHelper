@@ -84,8 +84,8 @@ channel_collection = client.managing.channel_collection
 group_collection = client.managing.group_collection
 
 # Create a function to get the owner information from the database
-def get_owner():
-    return owner_collection.find_one()
+def get_owner(chat_id):
+    return owner_collection.find_one({"chat_id": chat_id})
 
 # Create a function to get the admin information from the database
 def get_admin(chat_id):
@@ -143,16 +143,19 @@ def save_admin(full_name, username, chat_id):
         "chat_id": chat_id
     }
     admin_existed = admin_collection.find_one({"chat_id": chat_id}) is not None
-    owner = get_owner()
-    chat_id = owner['chat_id']
-    
-    if admin_existed:
-        admin_collection.update_one({"chat_id": chat_id}, {"$set": admin_info})
-        bot.send_message(chat_id, f"Admin {full_name} (@{username}) updated successfully.")
-    
-    else:
-        admin_collection.insert_one(admin_info)
-        bot.send_message(chat_id, f"Admin {full_name} (@{username}) added successfully.")
+    chat_id_owner = owner_collection.find_one()['chat_id']
+
+    user = get_user(chat_id)
+    if chat_id == user['chat_id']:
+        delete_user(chat_id)
+        if admin_existed:
+            # admin_collection.update_one({"chat_id": chat_id}, {"$set": admin_info})
+            admin_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
+            bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) updated successfully.")
+        
+        else:
+            admin_collection.insert_one(admin_info)
+            bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) added successfully.")
 
 # Create a function to save the user information to the database
 def save_user(full_name, username, chat_id, total_users):
@@ -167,25 +170,17 @@ def save_user(full_name, username, chat_id, total_users):
     if user_existed:
         user_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
         
-        owner = get_owner()
-        logging.info(owner)
-        user = get_user(chat_id)
-        logging.info(user)
-        
     else:
-        user_collection.insert_one(user_info)
-        # Send message to owner when a new member joined
+        if (get_owner(chat_id) is None) & (get_admin(chat_id) is None):
+            user_collection.insert_one(user_info)
+            # Send message to owner when a new member joined
 
-        # Get owner from collection
-        owner = get_owner()
-        logging.info(owner)
-        user = get_user(chat_id)
-        logging.info(user)
-        
-        # Get chat ID from owner document
-        chat_id = owner['chat_id']
-        if chat_id != user['chat_id']:
-            bot.send_message(chat_id, f"🔥 New member:\n\n👤 <b>{full_name}</b>\n\nTotal users: {total_users}", parse_mode='HTML' )
+            user = get_user(chat_id)
+            
+            # Get chat ID from owner document
+            chat_id = owner_collection.find_one()['chat_id']
+            if chat_id != user['chat_id']:
+                bot.send_message(chat_id, f"🔥 New member:\n\n👤 <b>{full_name}</b>\n\nTotal users: {total_users}", parse_mode='HTML' )
         
 
 # Create a function to save the channel information to the database
