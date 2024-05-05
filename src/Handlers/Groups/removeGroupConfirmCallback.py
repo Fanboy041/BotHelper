@@ -1,11 +1,11 @@
 # removeGroupConfirmCallback.py
 from telebot import types
-from Database.MongoDB import group_collection
+from Database.MongoDB import get_group
 
 def remove_group_confirm_callback(call, bot):
     group_id = int(call.data.split('remove_group_confirm_')[1])
-    fullname = group_collection.find_one({'chat_id': group_id})['full_name']
-    username = group_collection.find_one({'chat_id': group_id})['username']
+    fullname = get_group(group_id)['full_name']
+    username = get_group(group_id)['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_group_yes_{group_id}')
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'remove_group_back_{group_id}')  # Add a Back button
