@@ -300,6 +300,11 @@ try:
         if 'removeGroupCallback' in handlers:
             handlers['removeGroupCallback'].remove_group_callback(call, bot)
 
+    @bot.callback_query_handler(func=lambda call: call.data == 'antispam')
+    def handle_antispam_callback(call):
+        if 'antispamCallback' in handlers:
+            handlers['antispamCallback'].antispam_callback(call, bot)
+
     # @bot.message_handler(content_types=['text'])
 
     bot.infinity_polling()
