@@ -91,10 +91,10 @@ try:
         if 'addGroupChatId' in features:
             features['addGroupChatId'].add_group_chat_id(message, bot)
 
-    @bot.message_handler(content_types=['new_chat_members'])
-    def handle_delete_join_message(message):
-        if 'muteJoinedGroupMembers' in features:
-            features['muteJoinedGroupMembers'].delete_join_message(message, bot)
+    @bot.message_handler(content_types=['left_chat_member'])
+    def handle_add_group_chat_id(message):
+        if 'deleteGroupChatId' in features:
+            features['deleteGroupChatId'].delete_group_chat_id(message, bot)
 
     # Start command
     @bot.message_handler(commands=['start'])
@@ -122,6 +122,7 @@ try:
 
     # Channels button
     @bot.callback_query_handler(func=lambda call: call.data == 'channels_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
     def handle_channel_callback(call):
         if 'channelsMenuCallback' in handlers:
             handlers['channelsMenuCallback'].channels_menu_callback(call, bot)
@@ -137,12 +138,6 @@ try:
     def handle_show_channel_callback(call):
         if 'showChannelsCallback' in handlers:
             handlers['showChannelsCallback'].show_channels_callback(call, bot)
-
-    # Back to channel menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
-    def handle_back_to_channel_menu_callback(call):
-        if 'channelsMenuCallback' in handlers:
-            handlers['channelsMenuCallback'].channels_menu_callback(call, bot)
 
     # Remove channel button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_channel')
@@ -170,6 +165,7 @@ try:
 
     # Remove admin button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_admin')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
     def handle_remove_admin_callback(call):
         if 'removeAdminCallback' in handlers:
             handlers['removeAdminCallback'].remove_admin_callback(call, bot)
@@ -179,12 +175,6 @@ try:
     def handle_remove_admin_confirm_callback(call):
         if 'removeAdminConfirmCallback' in handlers:
             handlers['removeAdminConfirmCallback'].remove_admin_confirm_callback(call, bot)
-    
-    # Remove admin back button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
-    def handle_remove_admin_back_callback(call):
-        if 'removeAdminCallback' in handlers:
-            handlers['removeAdminCallback'].remove_admin_callback(call, bot)
 
     # Remove admin yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_yes_'))
@@ -212,6 +202,7 @@ try:
 
     # Groups button
     @bot.callback_query_handler(func=lambda call: call.data == 'groups_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
     def handle_group_callback(call):
         if 'groupsMenuCallback' in handlers:
             handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
@@ -228,12 +219,6 @@ try:
         if 'addGroupCallback' in handlers:
             handlers['addGroupCallback'].add_group_callback(call, bot)
 
-    # Back to group menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
-    def handle_back_to_group_menu_callback(call):
-        if 'groupsMenuCallback' in handlers:
-            handlers['groupsMenuCallback'].groups_menu_callback(call, bot)
-
     # Show users button
     @bot.callback_query_handler(func=lambda call: call.data == 'show_users')
     def handle_show_users_callback(call):
@@ -242,17 +227,13 @@ try:
 
     # User menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'users_menu')
-    def handle_user_menu_callback(call):
-        if 'usersMenuCallback' in handlers:
-            handlers['usersMenuCallback'].users_menu_callback(call, bot)
-
-    # Back to user menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_users_menu')
     def handle_user_menu_callback(call):
         if 'usersMenuCallback' in handlers:
             handlers['usersMenuCallback'].users_menu_callback(call, bot)
 
     # Remove user button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
     def handle_remove_user_callback(call):
         if 'removeUserCallback' in handlers:
@@ -270,13 +251,8 @@ try:
         if 'removeUserYesCallback' in handlers:
             handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
 
-    # Remove user back button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
-    def handle_remove_user_callback(call):
-        if 'removeUserCallback' in handlers:
-            handlers['removeUserCallback'].remove_user_callback(call, bot)
-
     # Remove group button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
     def handle_remove_group_callback(call):
         if 'removeGroupCallback' in handlers:
@@ -292,21 +268,13 @@ try:
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_yes_'))
     def handle_remove_group_yes_callback(call):
         if 'removeGroupYesCallback' in handlers:
-            handlers['removeGroupYesCallback'].remove_group_yes_callback(call, bot)
-
-    # Remove group back button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
-    def handle_remove_group_callback(call):
-        if 'removeGroupCallback' in handlers:
-            handlers['removeGroupCallback'].remove_group_callback(call, bot)
+            handlers['removeGroupYesCallback'].remove_group_yes_callback(bot, call)
 
     @bot.callback_query_handler(func=lambda call: call.data == 'antispam')
     def handle_antispam_callback(call):
         if 'antispamCallback' in handlers:
             handlers['antispamCallback'].antispam_callback(call, bot)
-
-    # @bot.message_handler(content_types=['text'])
-
+            
     bot.infinity_polling()
 except KeyboardInterrupt:
     logging.info("Polling manually interrupted.")
