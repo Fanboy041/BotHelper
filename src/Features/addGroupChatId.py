@@ -13,6 +13,7 @@ def add_group_chat_id(message, bot):
 
     administrators = bot.get_chat_administrators(group_id)
 
-    if bot.get_me().id in administrators:
-        if new_chat_member.id != bot.get_me().id:
-            bot.delete_message(message.chat.id, message.message_id)
+    for admin in administrators:
+        if bot.get_me().id == admin.user.id:
+            if new_chat_member.id != bot.get_me().id:
+                bot.delete_message(message.chat.id, message.message_id)
