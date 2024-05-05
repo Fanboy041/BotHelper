@@ -1,6 +1,6 @@
 # addAdminCallback.py
 from telebot import types
-from Database.MongoDB import save_admin
+from Database.MongoDB import save_admin, get_user, delete_user
 
 def add_admin_callback(call, bot):
     # Add a "Back" button
@@ -26,9 +26,7 @@ def process_admin_forwarded_message(message, bot):
                 if message.forward_from.last_name
                 else message.forward_from.first_name
             )
-            
             save_admin(full_name, username, user_id)
-            return
         else:
             bot.send_message(
                 message.chat.id, "Error: The forwarded message doesn't contain valid user information. Make sure the account is not hidden."
