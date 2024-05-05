@@ -18,7 +18,8 @@ def remove_group_yes_callback(bot, call):
             if call.message.chat.type == "private":
 
                 bot.send_message(call.message.chat.id, f"group with ID {group_id} removed successfully.")
-
+                remove_group_callback(call, bot)
+            
             bot.leave_chat(group_id)
             delete_group(group_id)
         else:

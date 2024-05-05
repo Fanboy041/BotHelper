@@ -143,7 +143,7 @@ def save_admin(full_name, username, chat_id):
         "chat_id": chat_id
     }
     admin_existed = admin_collection.find_one({"chat_id": chat_id}) is not None
-    owner = get_owner(chat_id)
+    owner = get_owner()
     chat_id = owner['chat_id']
     
     if admin_existed:
