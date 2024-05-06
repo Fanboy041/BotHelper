@@ -16,16 +16,7 @@ def add_admin_callback(call, bot):
         parse_mode='Markdown'
         )
     # Set the next state to handle the forwarded message
-    # bot.register_next_step_handler(call.message, process_admin_forwarded_message, bot)
-
-def process_pressing_back_callback(call, bot):
-    if call.data == 'back_to_admins_menu':
-        print("hi1")
-        bot.clear_step_handler()
-    else:
-        print("hi2")
-        bot.register_next_step_handler(call.message, process_pressing_back_callback, bot)
-        print("hi3")
+    bot.register_next_step_handler(call.message, process_admin_forwarded_message, bot)
 
 def process_admin_forwarded_message(message, bot):
     try:
