@@ -33,18 +33,18 @@ try:
     commands_dir = os.path.join(os.path.dirname(__file__), 'Commands')
 
     # Create an empty dictionary to store the module objects
-    modules = {}
+    commands = {}
 
     # Loop through all the files in the "Commands" folder
     for foldername in os.listdir(commands_dir):
         # Check if the file is a Python script (ends with .py)
         if foldername.endswith('.py') and foldername != '__init__.py':
             # Get the module name without the .py extension
-            module_name = os.path.splitext(foldername)[0]
+            command_name = os.path.splitext(foldername)[0]
 
             # Import the module dynamically
-            module = importlib.import_module(f'Commands.{module_name}')
-            modules[module_name] = module
+            command = importlib.import_module(f'Commands.{command_name}')
+            commands[command_name] = command
             # Now you can access the functions or classes in the imported module
 
     # Get the directory path of the "Features" folder
@@ -101,14 +101,20 @@ try:
     # Start command
     @bot.message_handler(commands=['start'])
     def handle_start_command(message):
-        if 'startCommand' in modules:
-            modules['startCommand'].send_welcome(message, bot)
+        if 'startCommand' in commands:
+            commands['startCommand'].send_welcome(message, bot)
 
     # Settings command
     @bot.message_handler(commands=['settings'])
     def handle_settings_command(message):
-        if 'settingsCommand' in modules:
-            modules['settingsCommand'].settings_command(message, bot)
+        if 'settingsCommand' in commands:
+            commands['settingsCommand'].settings_command(message, bot)
+
+    # Options command
+    @bot.message_handler(commands=['options'])
+    def handle_options_command(message):
+        if 'optionsCommand' in commands:
+            commands['optionsCommand'].options_command(message, bot)
 
     # Back to settings menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
@@ -267,7 +273,14 @@ try:
     def handle_antispam_callback(call):
         if 'antispamCallback' in handlers:
             handlers['antispamCallback'].antispam_callback(call, bot)
-            
+
+    # Back to options menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_options_menu')
+    def handle_back_to_options_menu_callback(call):
+        if 'backToOptionsMenuCallback' in handlers:
+            handlers['backToOptionsMenuCallback'].back_to_options_menu_callback(call, bot)
+    
+
     bot.infinity_polling()
 except KeyboardInterrupt:
     logging.info("Polling manually interrupted.")
