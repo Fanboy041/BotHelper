@@ -110,12 +110,6 @@ try:
         if 'settingsCommand' in commands:
             commands['settingsCommand'].settings_command(message, bot)
 
-    # Options command
-    @bot.message_handler(commands=['options'])
-    def handle_options_command(message):
-        if 'optionsCommand' in commands:
-            commands['optionsCommand'].options_command(message, bot)
-
     # Back to settings menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
     def handle_back_to_settings_menu_callback(call):
@@ -268,18 +262,33 @@ try:
         if 'removeUserYesCallback' in handlers:
             handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
 
-    # Antispam button
-    @bot.callback_query_handler(func=lambda call: call.data == 'antispam')
-    def handle_antispam_callback(call):
-        if 'antispamCallback' in handlers:
-            handlers['antispamCallback'].antispam_callback(call, bot)
+    # antispam group and antispam group back button
+    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group_callback')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_back_'))
+    def handle_antispam_group_callback(call):
+        if 'antispamGroupCallback' in handlers:
+            handlers['antispamGroupCallback'].antispam_group_callback(call, bot)
 
-    # Back to options menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_options_menu')
-    def handle_back_to_options_menu_callback(call):
-        if 'backToOptionsMenuCallback' in handlers:
-            handlers['backToOptionsMenuCallback'].back_to_options_menu_callback(call, bot)
+    # antispam group confirm button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_confirm_'))
+    def handle_antispam_group_confirm_callback(call):
+        if 'antispamGroupConfirmCallback' in handlers:
+            handlers['antispamGroupConfirmCallback'].antispam_group_confirm_callback(call, bot)
+
+    # antispam group yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_yes_'))
+    def handle_antispam_group_yes_callback(call):
+        if 'antispamGroupYesCallback' in handlers:
+            handlers['antispamGroupYesCallback'].antispam_group_yes_callback(bot, call)
     
+
+
+
+
+    @bot.message_handler(content_types=['text'])
+    def handle_antispam_group(message):        
+        if 'antispamGroup' in features:
+            features['antispamGroup'].antispam_group(message, bot)
 
     bot.infinity_polling()
 except KeyboardInterrupt:
