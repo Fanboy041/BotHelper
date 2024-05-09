@@ -282,6 +282,7 @@ try:
             handlers['antispamGroupYesCallback'].antispam_group_yes_callback(bot, call)
 
      # antispam group disallowd button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_approve_'))
     @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_disallowed_'))
     def handle_antispam_group_disallowed_callback(call):
         if 'antispamGroupdisallowedCallback' in handlers:
