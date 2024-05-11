@@ -4,7 +4,7 @@ from Database.MongoDB import (
 )
 
 def send_welcome(message, bot):
-    if message.chat.type == "private":
+    # if message.chat.type == "private":
         
         # User's informations
         first_name = message.from_user.first_name
@@ -30,7 +30,7 @@ def send_welcome(message, bot):
             save_user(full_name, username, chat_id, total_users)
 
             bot.send_message(message.chat.id, "هلا بالغالي")
-    else:
-        bot_username = bot.get_me().username
-        if f"@{bot_username}" in message.text:
-            bot.reply_to(message, "أهلا بكم في بوت الدعم الرجاء طرح مشكلتكم بشكل واضح ,لن نتأخر في الرد🌹.")
+    # else:
+    #     bot_username = bot.get_me().username
+    #     if f"@{bot_username}" in message.text:
+    #         bot.reply_to(message, "أهلا بكم في بوت الدعم الرجاء طرح مشكلتكم بشكل واضح ,لن نتأخر في الرد🌹.")
