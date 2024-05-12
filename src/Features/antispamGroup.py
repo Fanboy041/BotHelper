@@ -31,13 +31,9 @@ def antispam_group(message, bot):
                         if bot.get_me().id != adminId:
                             if get_admin(adminId) is not None or get_user(adminId) is not None or owner_collection.find_one({"chat_id": adminId}) is not None:
                                 if len(entities_urls) > 0:
-                                    message1 = bot.send_message(adminId, f"Approv the Link from '{message.from_user.first_name }' in Group '{message.chat.title}' :\n {entities_urls}", reply_markup=keyboard, parse_mode='HTML')
-                                    print(adminId)
-                                    print(message1.message_id)
+                                    bot.send_message(adminId, f"Approv the Link from '{message.from_user.first_name }' in Group '{message.chat.title}' :\n {entities_urls}", reply_markup=keyboard, parse_mode='HTML')
                                 else:
-                                    message1 = bot.send_message(adminId, f"Approv the Link from '{message.from_user.first_name }' in Group '{message.chat.title}' :\n [{message.text}]", reply_markup=keyboard, parse_mode='HTML')
-                                    print(adminId)
-                                    print(message1.message_id)
+                                    bot.send_message(adminId, f"Approv the Link from '{message.from_user.first_name }' in Group '{message.chat.title}' :\n [{message.text}]", reply_markup=keyboard, parse_mode='HTML')
                             else:
                                 bot.send_message(message.chat.id, f"[{adminId}](tg://user?id={adminId}): you are a Admin in this Group, can you start this Bot [{bot.get_me().id}](tg://user?id={bot.get_me().id}) to approve or disallow the links that the users send" , parse_mode = "Markdown")
         else:
