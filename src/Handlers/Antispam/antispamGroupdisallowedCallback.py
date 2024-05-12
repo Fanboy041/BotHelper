@@ -11,27 +11,25 @@ def antispam_group_disallowed_callback(bot, call):
     text = call.message.text.split("[")[1]
     group_name = call.message.text.split("'")[3]
 
-    admins = []
+    adminsIds = []
     administrators = bot.get_chat_administrators(group_id)
     for admin in administrators:
         if bot.get_me().id != admin.user.id:
             if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
-                admins.append(admin)
+                adminsIds.append(admin.user.id)
 
-    for admin in administrators:
-        if bot.get_me().id != admin.user.id:
-            if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
-                message = bot.send_message(admin.user.id, 'Test!')
-                bot.delete_message(admin.user.id, message.message_id)
-                print(len(admins) - 1)
-                print(admin.user.id)
-                bot.delete_message(admin.user.id, message.message_id - len(admins))
+    for admin in adminsIds:
+        message = bot.send_message(admin, 'Test!')
+        bot.delete_message(admin, message.message_id)
+        bot.delete_message(admin, message.message_id - len(adminsIds))
 
     if action == "disallowed":
     
         if owner_collection.find_one({"chat_id": user_id}) is None and get_user(user_id) is None and get_admin(user_id) is None:
-            
-            bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): Start the bot so that you get a message whether the admin has approved or disallowed the link and send your Link again to test it", parse_mode = "Markdown")
+            if user_id == 1087968824:
+                bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): this Admin is Annyom that's the reason why i can't send him a message", parse_mode = "Markdown")
+            else:
+                bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): Start the bot so that you get a message whether the admin has approved or disallowed the link and send your Link again to test it", parse_mode = "Markdown")
         else:
             bot.send_message(user_id, f"Admin has disallowed this Link: \n [{text} \n that you sent to the group {group_name}")
 
@@ -46,9 +44,12 @@ def antispam_group_disallowed_callback(bot, call):
     elif action == "approve":
 
         if owner_collection.find_one({"chat_id": user_id}) is None and get_user(user_id) is None and get_admin(user_id) is None:
-            
-            bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): Start the bot so that you get a message whether the admin has approved or disallowed the link and send your Link again to test it", parse_mode = "Markdown")
+            if user_id == 1087968824:
+                bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): this Admin is Annyom that's the reason why i can't send him a message", parse_mode = "Markdown")
+            else:
+                bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): Start the bot so that you get a message whether the admin has approved or disallowed the link and send your Link again to test it", parse_mode = "Markdown")
         else:
-            bot.send_message(call.message.chat.id, f"you have approve this Link: \n [{text} \n that sent from {user_first_name}")
-            bot.send_message(user_id, f"Admin has approve this Link: \n [{text} \n that you sent to the group {group_name}")
-            bot.send_message(group_id, f"Admin has approve this Link: \n [{text} \n that [{user_id}](tg://user?id={user_id}) sent", parse_mode = "Markdown")
+            bot.send_message(user_id, f"Admin has approved this Link: \n [{text} \n that you sent to the group {group_name}")
+
+        bot.send_message(call.message.chat.id, f"you have approve this Link: \n [{text} \n that sent from {user_first_name}")
+        bot.send_message(group_id, f"Admin has approved this Link: \n [{text} \n that [{user_id}](tg://user?id={user_id}) sent", parse_mode = "Markdown")
