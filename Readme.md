@@ -30,7 +30,7 @@ You need to install “git” and latest “Python” version on your workstatio
 
 After “git” being installed, assuming you’re using Windows, create a new folder then hold shift and press right click:
 
-![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/d2bbe1be-d81f-4dcd-8c49-3ee0a7baacad)
+![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/897f281c-e049-4a09-b75d-238676c91388)
 
 - Open the PowerShell then type “code .” and hit enter to open the directory in your code editor:
 
