@@ -52,8 +52,10 @@ After “git” being installed, assuming you’re using Windows, create a new f
 
 - after that you need to create a file in the root directory called “.env” to store “MONGO_URI” the database connection uri and your “BOT_TOKEN” the api token for your bot you just created:
 
+```
     MONGO_URI=""
     BOT_TOKEN=""
+```
 
 NOTE: Put your mogo uri and bot token inside these double quotations.
 
