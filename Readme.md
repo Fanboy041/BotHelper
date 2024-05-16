@@ -1,7 +1,6 @@
 First of all you need to create a bot on telegram to interact with it when maintaining the code
 
 # Creating Bot On Telegram:
-
 Open Telegram then go to [Bot Father](https://t.me/BotFather) 
 
 Which is a bot provided by Telegram its-self to create bots on their application which can give you an API Token and you can edit your bot using it, you need the API Token to make a connection between your code and your bot on telegram
@@ -47,7 +46,8 @@ After “git” being installed, assuming you’re using Windows, create a new f
 
 # Preparing The Workspace To Start:
 Before you take any action you need to install the requirements by typing in your terminal:
-pip install -r requirements.txt
+
+        pip install -r requirements.txt
 
 after that you need to create a file in the root directory called “.env” to store “MONGO_URI” the database connection uri and your “BOT_TOKEN” the api token for your bot you just created:
 
@@ -75,5 +75,19 @@ For pyTelegramBotAPI:
 For pymongo:
 -	https://pymongo.readthedocs.io/en/stable/
 
+# Explain How The Code Being Wrote:
+The root directory contains 1 Folder and 3 files which is:
 
+- src
+- .gitignore
+- Readme.md
+- requirements.txt
 
+src folder contains 4 main folders
+
+- Commands
+- Database
+- Features
+- Handlers
+
+and contains 
