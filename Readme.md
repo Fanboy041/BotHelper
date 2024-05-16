@@ -76,18 +76,80 @@ For pymongo:
 -	https://pymongo.readthedocs.io/en/stable/
 
 # Explain How The Code Being Wrote:
-The root directory contains 1 Folder and 3 files which is:
+```
+├── src
+│    ├── Commands
+│    │    ├── settingsCommand.py
+│    │    └── startCommand.py
+│    │
+│    ├── Database
+│    │    └── MongoDB.py
+│    │
+│    ├── Features
+│    │    ├── addGroupChatId.py
+│    │    ├── antispamGroup.py
+│    │    └── deleteGroupChatId.py
+│    │
+│    ├── Handlers
+│    │    ├── Admins
+│    │    │    ├── addAdminCallback.py
+│    │    │    ├── adminsMenuCallback.py
+│    │    │    ├── removeAdminCallback.py
+│    │    │    ├── removeAdminConfirmCallback.py
+│    │    │    ├── removeAdminYesCallback.py
+│    │    │    └── showAdminsCallback.py
+│    │    │
+│    │    ├── Antispam
+│    │    │    ├── antispamGroupCallback.py
+│    │    │    ├── antispamGroupConfirmCallback.py
+│    │    │    ├── antispamGroupdisallowedCallback.py
+│    │    │    ├── antispamGroupYesCallback.py
+│    │    │    └── kickUserFromGroupCallback.py
+│    │    │
+│    │    ├── Channel
+│    │    │    ├── addChannelCallback.py
+│    │    │    ├── channelsMenuCallback.py
+│    │    │    ├── removeChannelConfirmCallback.py
+│    │    │    ├── removeChannelYesCallback.py
+│    │    │    └── showChannelsCallback.py
+│    │    │
+│    │    ├── Groups
+│    │    │    ├── addGroupCallback.py
+│    │    │    ├── groupsMenuCallback.py
+│    │    │    ├── removeGroupCallback.py
+│    │    │    ├── removeGroupConfirmCallback.py
+│    │    │    └── showGroupsCallback.py
+│    │    │
+│    │    ├── Settings
+│    │    │    └── backToSettingsMenuCallback.py
+│    │    │
+│    │    └── Users
+│    │         ├── removeUserCallback.py
+│    │         ├── removeUserConfirmCallback.py
+│    │         ├── removeUserYesCallback.py
+│    │         ├── showUsersCallback.py
+│    │         └── usersMenuCallback.py
+│    │
+│    └── main.py
+│
+├── .gitignore
+│
+├── Readme.md
+│
+└── requirements.txt
 
-- src
-- .gitignore
-- Readme.md
-- requirements.txt
+```
+- __requirements.txt__ file is important to install the required libraries which is being used to write the code
 
-src folder contains 4 main folders
+- __Commands__ contains any command script, command in telegram bots it's any text message being sent to the bot that starts with __/__ character for example: /start
 
-- Commands
-- Database
-- Features
-- Handlers
+- __Database__ contains the script that link the code with [MongoDB](https://www.mongodb.com/) Database, it contains alot of methods you better read it before start coding in this repo
 
-and contains 
+- __Features__ contains extra features that we add it to the bot, it's not a message handler or callback query handler
+
+- __Handlers__ contains all callback queries scripts
+
+  NOTE: Callback query is the action that being sen tto the bot when pressing an inline button in the bot
+
+- __main.py__ is the main script that the bot interact with, inside this script there is an automatic importing from the Commands, Features and Handlers contents to _main.py_ so you can easily call any function inside those scripts in the _main.py_ script directly
+
