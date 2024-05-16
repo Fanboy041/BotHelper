@@ -11,11 +11,11 @@ When you start the bot you need to send this command: /newbot
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/d52fa285-d8e6-4450-b7c7-b355d980c4b1)
 
 
-Now you need to prepare the bot by at first sending to the BotFather the name of your bot:
+- Now you need to prepare the bot by at first sending to the BotFather the name of your bot:
 
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/ace1f19e-3605-44ac-97fe-346bfa664a8f)
 
-Then type your new bot username:
+- Then type your new bot username:
 
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/709e16e5-3b59-4eac-9259-bc880ea635ca)
 
@@ -33,15 +33,15 @@ After “git” being installed, assuming you’re using Windows, create a new f
 
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/d2bbe1be-d81f-4dcd-8c49-3ee0a7baacad)
 
-Open the PowerShell then type “code .” and hit enter to open the directory in your code editor:
+- Open the PowerShell then type “code .” and hit enter to open the directory in your code editor:
 
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/de0ed58a-fb15-4bb9-ad6d-3451117ca4de)
 
-Reach to “Terminal” in your code editor to type the cloning command to clone the repo:
+- Reach to “Terminal” in your code editor to type the cloning command to clone the repo:
 
-    git clone https://github.com/Fanboy041/Telegram-Bot-Template.git
+        git clone https://github.com/Fanboy041/Telegram-Bot-Template.git
 
-You’re gonna find something similar to this:
+- You’re gonna find something similar to this:
 
 ![image](https://github.com/Fanboy041/Telegram-Bot-Template/assets/163625032/d2fb100e-4d07-4454-8118-ac54314061e8)
 
@@ -54,7 +54,7 @@ after that you need to create a file in the root directory called “.env” to 
     MONGO_URI=""
     BOT_TOKEN=""
 
-Put your mogo uri and bot token inside these double quotations.
+NOTE: Put your mogo uri and bot token inside these double quotations.
 
 Finally, you are ready to start the bot by running :
 python ./src/main.py
