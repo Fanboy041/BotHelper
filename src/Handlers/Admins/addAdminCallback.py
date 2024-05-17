@@ -1,8 +1,13 @@
-# addAdminCallback.py
 from telebot import types
 from Database.MongoDB import save_admin, get_user, delete_user
 
 def add_admin_callback(call, bot):
+
+    # If back_to_admins_menu button pressed clear the step handler
+    if call.data == 'back_to_admins_menu':
+        bot.clear_step_handler_by_chat_id(call.message.chat.id)
+        return
+    
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admins_menu')
@@ -20,6 +25,7 @@ def add_admin_callback(call, bot):
 
 def process_admin_forwarded_message(message, bot):
     try:
+
         # Check if message.forward_from exists and has necessary attributes
         if message.forward_from and hasattr(message.forward_from, 'id') and hasattr(message.forward_from, 'first_name'):
             # Extract user information from the forwarded message

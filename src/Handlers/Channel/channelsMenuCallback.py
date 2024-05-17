@@ -1,4 +1,3 @@
-# channelCallback.py
 from telebot import types
 
 def channels_menu_callback(call, bot):

@@ -1,4 +1,3 @@
-# removeuserYesCallback.py
 from Database.MongoDB import get_user, delete_user
 from Handlers.Users.removeUserCallback import remove_user_callback
 

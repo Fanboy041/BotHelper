@@ -1,4 +1,3 @@
-# removeAdminConfirmCallback.py
 from telebot import types
 from Database.MongoDB import admin_collection
 

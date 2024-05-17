@@ -1,4 +1,3 @@
-# removeGroupCallback.py
 from telebot import types
 from Database.MongoDB import group_collection
 
