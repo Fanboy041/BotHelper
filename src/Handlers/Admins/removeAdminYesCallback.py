@@ -1,4 +1,3 @@
-# removeAdminYesCallback.py
 from Database.MongoDB import admin_collection
 from Handlers.Admins.removeAdminCallback import remove_admin_callback
 

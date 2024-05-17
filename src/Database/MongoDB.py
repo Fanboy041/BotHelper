@@ -1,4 +1,3 @@
-# MongoDB.py
 import telebot, logging
 import os
 from telebot import types, util

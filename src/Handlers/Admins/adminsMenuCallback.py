@@ -1,4 +1,3 @@
-# adminCommand.py
 from telebot import types
 
 def admins_callback(call, bot):

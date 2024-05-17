@@ -1,4 +1,3 @@
-# removeChannelCallback.py
 from telebot import types
 from Database.MongoDB import (get_channel, channel_collection)
 

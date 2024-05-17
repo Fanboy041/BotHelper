@@ -1,4 +1,3 @@
-# removeGroupYesCallback.py
 from Database.MongoDB import get_group, delete_group
 from Handlers.Groups.removeGroupCallback import remove_group_callback
 
@@ -25,6 +24,6 @@ def remove_group_yes_callback(bot, call):
         else:
             bot.send_message(call.message.chat.id, f"group with ID {group_id} not found.")
     elif action == 'back':
-        remove_group_callback(call, bot)  # Go back to the "Select an group ID to remove:" message
+        remove_group_callback(call, bot)
     else:
         bot.send_message(call.message.chat.id, "Invalid action data.")

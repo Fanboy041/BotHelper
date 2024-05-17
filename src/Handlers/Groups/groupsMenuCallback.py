@@ -1,10 +1,10 @@
-# groupCallback.py
 from telebot import types
 
 def groups_menu_callback(call, bot):
 
     # Initial message with inline keyboard
     keyboard = types.InlineKeyboardMarkup(row_width=2)
+    # Put the rights
     right = types.ChatAdministratorRights(
         is_anonymous = False, 
         can_manage_chat = True, 
@@ -21,6 +21,7 @@ def groups_menu_callback(call, bot):
         can_post_stories = True, 
         can_edit_stories = True, 
         can_delete_stories = True)
+    
     bot.set_my_default_administrator_rights(right, for_channels = False)
     add_group = types.InlineKeyboardButton("Add group 🔈", url=f"http://t.me/{bot.get_me().username}?startgroup=botstart")
     remove_group = types.InlineKeyboardButton("Remove group ✖️", callback_data='remove_group')

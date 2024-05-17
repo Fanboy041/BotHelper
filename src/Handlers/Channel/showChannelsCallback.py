@@ -1,4 +1,3 @@
-# showChannelCallback.py
 from telebot import types
 from Database.MongoDB import channel_collection
 

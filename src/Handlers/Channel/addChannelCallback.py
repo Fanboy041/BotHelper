@@ -1,4 +1,3 @@
-# addChannelCallback.py
 from telebot import types
 from Database.MongoDB import save_channel
 

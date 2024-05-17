@@ -1,4 +1,3 @@
-# userCallback.py
 from telebot import types
 
 def users_menu_callback(call, bot):

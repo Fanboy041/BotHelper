@@ -1,22 +1,16 @@
-# main.py
 import telebot, logging
 import os
 import importlib
-# from telebot import types, util
 from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
-# from Commands.startCommand import send_welcome
-# from Database.MongoDB import (
-#     get_owner, get_admin, get_user, get_channel, get_group,
-#     save_owner, save_user
-# )
 
+# load the .env file
 load_dotenv()
 
 bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
 
 try:
-    # Logging configuration
+    # Logging configuration 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     logging.info("Main script runs successfully, Bot is working")
@@ -276,10 +270,10 @@ try:
             handlers['antispamGroupConfirmCallback'].antispam_group_confirm_callback(call, bot)
 
     # antispam group yes button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_yes_'))
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_activation_'))
     def handle_antispam_group_yes_callback(call):
-        if 'antispamGroupYesCallback' in handlers:
-            handlers['antispamGroupYesCallback'].antispam_group_yes_callback(bot, call)
+        if 'antispamGroupActivationCallback' in handlers:
+            handlers['antispamGroupActivationCallback'].antispam_group_activation_callback(bot, call)
 
     # antispam group disallowd button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_approve_'))
@@ -293,11 +287,8 @@ try:
     def handle_antispam_group_disallowed_callback(call):
         if 'kickUserFromGroupCallback' in handlers:
             handlers['kickUserFromGroupCallback'].kick_user_from_group_callback(bot, call)
-    
 
-
-
-
+    # Handle the urls that sent in groups
     @bot.message_handler(content_types=['text'])
     def handle_antispam_group(message):        
         if 'antispamGroup' in features:

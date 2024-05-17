@@ -37,4 +37,4 @@ def antispam_group(message, bot):
                             else:
                                 bot.send_message(message.chat.id, f"[{adminId}](tg://user?id={adminId}): you are a Admin in this Group, can you start this Bot [{bot.get_me().id}](tg://user?id={bot.get_me().id}) to approve or disallow the links that the users send" , parse_mode = "Markdown")
         else:
-            bot.send_message(message.chat.id, "can you make me admin please to read all messages and antispam them")
+            bot.send_message(message.chat.id, "Please make me admin to activate antispam on uls")

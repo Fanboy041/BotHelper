@@ -1,4 +1,3 @@
-# removeuserConfirmCallback.py
 from telebot import types
 from Database.MongoDB import get_user
 
@@ -14,5 +13,4 @@ def remove_user_confirm_callback(call, bot):
     bot.edit_message_text(
         f"Are you sure you want to remove this user:\n\nName: <b>{fullname}</b>\nUsername: @{username}\nUserID: <code>{user_id}</code>\n\nThis action can't be undone ?",
         call.message.chat.id,
-        call.message.message_id, parse_mode='HTML', reply_markup=keyboard
-    )
+        call.message.message_id, parse_mode='HTML', reply_markup=keyboard)

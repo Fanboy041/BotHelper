@@ -1,7 +1,5 @@
-# startCommand.py
 from Database.MongoDB import (
-    owner_collection, user_collection, save_owner, save_user, get_owner, get_admin
-)
+    owner_collection, user_collection, save_owner, save_user, get_owner, get_admin)
 
 def send_welcome(message, bot):
     if message.chat.type == "private":
@@ -29,9 +27,9 @@ def send_welcome(message, bot):
             # Save the user info in the database
             save_user(full_name, username, chat_id, total_users)
 
-            bot.send_message(message.chat.id, "هلا بالغالي")
+            bot.send_message(message.chat.id, "Welcome")
         
     else:
         bot_username = bot.get_me().username
         if f"@{bot_username}" in message.text:
-            bot.reply_to(message, "أهلا بكم في بوت الدعم الرجاء طرح مشكلتكم بشكل واضح ,لن نتأخر في الرد🌹.")
+            bot.reply_to(message, "Please run the command in private")

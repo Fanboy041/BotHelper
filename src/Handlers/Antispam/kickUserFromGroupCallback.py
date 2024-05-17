@@ -24,7 +24,6 @@ def kick_user_from_group_callback(bot, call):
 
         if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
             bot.send_message(user_id, f"you kicked from this group {group_name} by sending this Link: \n [{text}")
-            # bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): was kicked by {bot.get_me().first_name}", parse_mode = "Markdown")
         bot.ban_chat_member(group_id, user_id)
 
     else:
