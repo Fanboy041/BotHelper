@@ -43,3 +43,4 @@ yarn-error.log
 # Compiled output
 *.swp
 *.swo
+discloud.config
