@@ -108,7 +108,7 @@ try:
     @bot.message_handler(commands=['settings'])
     def handle_settings_command(message):
         if 'settingsCommand' in commands:
-            commands['settingsCommand'].settings_command(message, bot)
+            commands['settingsCommand'].settings_command(message, bot, handlers)
 
     # Back to settings menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
@@ -262,38 +262,6 @@ try:
         if 'removeUserYesCallback' in handlers:
             handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
 
-    # antispam group and antispam group back button
-    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group_callback')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_back_'))
-    def handle_antispam_group_callback(call):
-        if 'antispamGroupCallback' in handlers:
-            handlers['antispamGroupCallback'].antispam_group_callback(call, bot)
-
-    # antispam group confirm button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_confirm_'))
-    def handle_antispam_group_confirm_callback(call):
-        if 'antispamGroupConfirmCallback' in handlers:
-            handlers['antispamGroupConfirmCallback'].antispam_group_confirm_callback(call, bot)
-
-    # antispam group yes button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_yes_'))
-    def handle_antispam_group_yes_callback(call):
-        if 'antispamGroupYesCallback' in handlers:
-            handlers['antispamGroupYesCallback'].antispam_group_yes_callback(bot, call)
-
-    # antispam group disallowd button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_approve_'))
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_disallowed_'))
-    def handle_antispam_group_disallowed_callback(call):
-        if 'antispamGroupdisallowedCallback' in handlers:
-            handlers['antispamGroupdisallowedCallback'].antispam_group_disallowed_callback(bot, call)
-
-    # kick user from group button
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('kick_user_'))
-    def handle_antispam_group_disallowed_callback(call):
-        if 'kickUserFromGroupCallback' in handlers:
-            handlers['kickUserFromGroupCallback'].kick_user_from_group_callback(bot, call)
-    
 
 
 
@@ -301,7 +269,7 @@ try:
     @bot.message_handler(content_types=['text'])
     def handle_antispam_group(message):        
         if 'antispamGroup' in features:
-            features['antispamGroup'].antispam_group(message, bot)
+            features['antispamGroup'].antispam_group(message, bot, handlers)
 
     bot.infinity_polling()
 except KeyboardInterrupt:
