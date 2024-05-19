@@ -2,7 +2,7 @@
 from telebot import types
 from Database.MongoDB import get_owner, get_admin, get_user
 
-def settings_command(message, bot):
+def settings_command(message, bot, handlers):
     if message.chat.type == "private":
         user_id = message.from_user.id
 
@@ -38,3 +38,11 @@ def settings_command(message, bot):
         bot_username = bot.get_me().username
         if f"@{bot_username}" in message.text:
             bot.reply_to(message, "أهلا بكم في بوت الدعم الرجاء طرح مشكلتكم بشكل واضح ,لن نتأخر في الرد🌹.")
+    
+
+    # antispam group and antispam group back button
+    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group_callback')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_back_'))
+    def handle_antispam_group_callback(call):
+        if 'antispamGroupCallback' in handlers:
+            handlers['antispamGroupCallback'].antispam_group_callback(call, bot, handlers)
