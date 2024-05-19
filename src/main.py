@@ -3,7 +3,7 @@ import os
 import importlib
 from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
-
+# test commit
 # load the .env file
 load_dotenv()
 
