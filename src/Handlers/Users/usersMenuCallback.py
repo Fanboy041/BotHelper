@@ -1,4 +1,6 @@
 from telebot import types
+from Handlers.Users.showUsersCallback import show_users_callback
+from Handlers.Users.removeUserCallback import remove_user_callback
 
 def users_menu_callback(call, bot):
 
@@ -10,3 +12,14 @@ def users_menu_callback(call, bot):
     keyboard.add(remove_user, show_users, back_to_settings_menu)
 
     bot.edit_message_text("📊 Users Control Panel:", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')
+
+    # Show users button
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_users')
+    def handle_show_users_callback(call):
+        show_users_callback(call, bot)
+
+    # Remove user and remove user back button
+    @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
+    def handle_remove_user_callback(call):
+        remove_user_callback(call, bot)

@@ -41,26 +41,6 @@ try:
             commands[command_name] = command
             # Now you can access the functions or classes in the imported module
 
-    # # Get the directory path of the "Features" folder
-    # handlers_dir = os.path.join(os.path.dirname(__file__), 'Handlers')
-
-    # # Create an empty dictionary to store the module objects
-    # handlers = {}
-
-    # # Loop through all the files in the "Handlers" folder
-    # for foldername in os.listdir(handlers_dir):
-    #     if foldername != '__init__.py':
-    #         # Loop through all the folders in the "Handlers" folder
-    #         for filename in os.listdir(os.path.join(os.path.dirname(__file__), f'Handlers\\{foldername}')):
-    #              # Check if the file is a Python script (ends with .py)
-    #             if filename.endswith('.py'):
-    #                 # Get the module name without the .py extension
-    #                 handler_name = os.path.splitext(filename)[0]
-
-    #                 # Import the module dynamically
-    #                 handler = importlib.import_module(f'Handlers.{foldername}.{handler_name}')
-    #                 handlers[handler_name] = handler
-    #             # Now you can access the functions or classes in the imported module
 
     # Get the directory path of the "Features" folder
     features_dir = os.path.join(os.path.dirname(__file__), 'Features')
@@ -104,130 +84,13 @@ try:
         if 'settingsCommand' in commands:
             commands['settingsCommand'].settings_command(message, bot)
 
-    # # Show admins button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'show_admins')
-    # def handle_show_admins_callback(call):
-    #     if 'showAdminsCallback' in handlers:
-    #         handlers['showAdminsCallback'].show_admins_callback(call, bot)
-    
-    # # Add admin button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'add_admin')
-    # def handle_add_admin_callback(call):
-    #     if 'addAdminCallback' in handlers:
-    #         handlers['addAdminCallback'].add_admin_callback(call, bot)
-
-    # # Remove admin button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'remove_admin')
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
-    # def handle_remove_admin_callback(call):
-    #     if 'removeAdminCallback' in handlers:
-    #         handlers['removeAdminCallback'].remove_admin_callback(call, bot)
-
-    # # Remove admin confirm button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_confirm_'))
-    # def handle_remove_admin_confirm_callback(call):
-    #     if 'removeAdminConfirmCallback' in handlers:
-    #         handlers['removeAdminConfirmCallback'].remove_admin_confirm_callback(call, bot)
-
-    # # Remove admin yes button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_yes_'))
-    # def handle_remove_admin_yes_callback(call):
-    #     if 'removeAdminYesCallback' in handlers:
-    #         handlers['removeAdminYesCallback'].remove_admin_yes_callback(call, bot)
-    
-    # # Add chnnel button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'add_channel')
-    # def handle_add_channel_callback(call):
-    #     if 'addChannelCallback' in handlers:
-    #         handlers['addChannelCallback'].add_channel_callback(call, bot)
-
-    # # Show channels button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'show_channels')
-    # def handle_show_channel_callback(call):
-    #     if 'showChannelsCallback' in handlers:
-    #         handlers['showChannelsCallback'].show_channels_callback(call, bot)
-
-    # # Remove channel and remove channel back button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'remove_channel')
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_back_'))
-    # def handle_remove_channel_callback(call):
-    #     if 'removeChannelCallback' in handlers:
-    #         handlers['removeChannelCallback'].remove_channel_callback(call, bot)
-    
-    # # Remove channel confirm button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_confirm_'))
-    # def handle_remove_channel_confirm_callback(call):
-    #     if 'removeChannelConfirmCallback' in handlers:
-    #         handlers['removeChannelConfirmCallback'].remove_channel_confirm_callback(call, bot)
-
-    # # Remove channel yes button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_yes_'))
-    # def handle_remove_channel_yes_callback(call):
-    #     if 'removeChannelYesCallback' in handlers:
-    #         handlers['removeChannelYesCallback'].remove_channel_yes_callback(call,bot)
-
-    # # Show groups button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'show_groups')
-    # def handle_show_groups_callback(call):
-    #     if 'showGroupsCallback' in handlers:
-    #         handlers['showGroupsCallback'].show_groups_callback(call, bot)
-
-    # # Add group button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'add_group')
-    # def handle_add_group_callback(call):
-    #     if 'addGroupCallback' in handlers:
-    #         handlers['addGroupCallback'].add_group_callback(call, bot)
-
-    # # Remove group and remove group back button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
-    # def handle_remove_group_callback(call):
-    #     if 'removeGroupCallback' in handlers:
-    #         handlers['removeGroupCallback'].remove_group_callback(call, bot)
-
-    # # Remove group confirm button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_confirm_'))
-    # def handle_remove_group_confirm_callback(call):
-    #     if 'removeGroupConfirmCallback' in handlers:
-    #         handlers['removeGroupConfirmCallback'].remove_group_confirm_callback(call, bot)
-
-    # # Remove group yes button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_yes_'))
-    # def handle_remove_group_yes_callback(call):
-    #     if 'removeGroupYesCallback' in handlers:
-    #         handlers['removeGroupYesCallback'].remove_group_yes_callback(bot, call)
-
-    # # Show users button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'show_users')
-    # def handle_show_users_callback(call):
-    #     if 'showUsersCallback' in handlers:
-    #         handlers['showUsersCallback'].show_users_callback(call, bot)
-
-    # # Remove user and remove user back button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
-    # def handle_remove_user_callback(call):
-    #     if 'removeUserCallback' in handlers:
-    #         handlers['removeUserCallback'].remove_user_callback(call, bot)
-
-    # # Remove user confirm button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_confirm_'))
-    # def handle_remove_user_confirm_callback(call):
-    #     if 'removeUserConfirmCallback' in handlers:
-    #         handlers['removeUserConfirmCallback'].remove_user_confirm_callback(call, bot)
-
-    # # Remove user yes button
-    # @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_yes_'))
-    # def handle_remove_user_yes_callback(call):
-    #     if 'removeUserYesCallback' in handlers:
-    #         handlers['removeUserYesCallback'].remove_user_yes_callback(call, bot)
-
     # Handle the urls that sent in groups
     @bot.message_handler(content_types=['text'])
     def handle_antispam_group(message):        
         if 'antispamGroup' in features:
             features['antispamGroup'].antispam_group(message, bot)
 
+    
     bot.infinity_polling()
 except KeyboardInterrupt:
     logging.info("Polling manually interrupted.")

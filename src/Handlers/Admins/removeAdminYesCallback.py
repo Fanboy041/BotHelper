@@ -1,5 +1,6 @@
 from Database.MongoDB import admin_collection
-from Handlers.Admins.removeAdminCallback import remove_admin_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+
 
 def remove_admin_yes_callback(call, bot):
     parts = call.data.split('_')
@@ -11,11 +12,10 @@ def remove_admin_yes_callback(call, bot):
             # If the callback was yes, remove the admin from admin collection
             if admin_collection.find_one({'chat_id': admin_id}):
                 admin_collection.delete_one({'chat_id': admin_id})
-                remove_admin_callback(call, bot)
                 bot.send_message(call.message.chat.id, f"Admin with ID {admin_id} removed successfully.")
             else:
                 bot.send_message(call.message.chat.id, f"Admin with ID {admin_id} not found.")
-        elif action == 'back':
-            remove_admin_callback(call, bot)  # Go back to the "Select an admin ID to remove:" message
+
+            back_to_settings_menu_callback(call, bot)  # Go back to the "Select an admin ID to remove:" message
     else:
         bot.send_message(call.message.chat.id, "Invalid action data.")

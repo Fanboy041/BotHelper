@@ -1,4 +1,7 @@
 from telebot import types
+from Handlers.Groups.showGroupsCallback import show_groups_callback
+from Handlers.Groups.removeGroupCallback import remove_group_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def groups_menu_callback(call, bot):
 
@@ -30,3 +33,19 @@ def groups_menu_callback(call, bot):
     keyboard.add(add_group, remove_group, show_group, back_to_settings_menu)
 
     bot.edit_message_text("📊 Groups Control Panel:", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')
+
+    # Show groups button
+    @bot.callback_query_handler(func=lambda call: call.data == 'show_groups')
+    def handle_show_groups_callback(call):
+        show_groups_callback(call, bot)
+
+    # Remove group and remove group back button
+    @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
+    def handle_remove_group_callback(call):
+        remove_group_callback(call, bot)
+
+    # Back to settings menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
+    def handle_back_to_settings_menu_callback(call):
+        back_to_settings_menu_callback(call, bot)
