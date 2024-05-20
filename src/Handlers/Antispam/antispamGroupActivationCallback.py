@@ -1,6 +1,6 @@
-# removeGroupYesCallback.py
+
 from Database.MongoDB import get_group, group_collection
-from Handlers.Antispam.antispamGroupCallback import antispam_group_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def antispam_group_activation_callback(bot, call):
     parts = call.data.split('_')
@@ -20,11 +20,13 @@ def antispam_group_activation_callback(bot, call):
             group_collection.update_one({"chat_id": group_id}, {"$set": {"is_antispam": False}})
             bot.send_message(call.message.chat.id, "Antispam is Deactivated")
             bot.send_message(group_id, "Antispam is Deactivated")
-            
-        antispam_group_callback(call, bot)
+        
+        # antispam_group_callback(call, bot)
+        back_to_settings_menu_callback(call, bot)
 
-    elif action == 'back':
-        antispam_group_callback(call, bot)
+    # elif action == 'back':
+        # antispam_group_callback(call, bot)
+        # back_to_settings_menu_callback(call, bot)
         
     else:
         bot.send_message(call.message.chat.id, "Invalid action data.")

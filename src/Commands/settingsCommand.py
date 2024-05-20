@@ -1,5 +1,11 @@
 from telebot import types
 from Database.MongoDB import get_owner, get_admin, get_user
+from Handlers.Admins.adminsMenuCallback import admins_callback
+from Handlers.Channel.channelsMenuCallback import channels_menu_callback
+from Handlers.Groups.groupsMenuCallback import groups_menu_callback
+from Handlers.Users.usersMenuCallback import users_menu_callback
+from Handlers.Antispam.antispamGroupCallback import antispam_group_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def settings_command(message, bot):
     if message.chat.type == "private":
@@ -35,3 +41,37 @@ def settings_command(message, bot):
         bot_username = bot.get_me().username
         if f"@{bot_username}" in message.text:
             bot.reply_to(message, "Please run the command in private")
+
+    # Admins menu and back to Admins menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'admins_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_admins_menu')
+    def handle_admins_callback(call):
+        admins_callback(call, bot)
+
+    # Channels menu and back to Channels menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'channels_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
+    def handle_channel_callback(call):
+        channels_menu_callback(call, bot)
+
+    # Groups menu and back to Groups menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'groups_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
+    def handle_group_callback(call):
+        groups_menu_callback(call, bot)
+
+    # Users menu and back to users menu button
+    @bot.callback_query_handler(func=lambda call: call.data == 'users_menu')
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_users_menu')
+    def handle_user_menu_callback(call):
+        users_menu_callback(call, bot)
+
+    # Antispam group and back to Antispam group button
+    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group_callback')
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_back_'))
+    def handle_antispam_group_callback(call):
+        antispam_group_callback(call, bot)
+
+    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
+    def handle_back_to_settings_menu_callback(call):
+        back_to_settings_menu_callback(call, bot) 

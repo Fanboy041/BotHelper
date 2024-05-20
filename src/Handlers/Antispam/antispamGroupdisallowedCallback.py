@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import owner_collection, get_admin, get_user, get_owner
+from Handlers.Antispam.kickUserFromGroupCallback import kick_user_from_group_callback
 
 def antispam_group_disallowed_callback(bot, call):
     action = call.data.split('_')[2]
@@ -53,3 +54,8 @@ def antispam_group_disallowed_callback(bot, call):
 
         bot.send_message(call.message.chat.id, f"you have approve this Link: \n [{text} \n that sent from {user_first_name}")
         bot.send_message(group_id, f"Admin has approved this Link: \n [{text} \n that [{user_id}](tg://user?id={user_id}) sent", parse_mode = "Markdown")
+        
+    # kick user from group button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('kick_user_'))
+    def handle_antispam_group_disallowed_callback(call):
+        kick_user_from_group_callback(bot, call)

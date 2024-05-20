@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_group, get_admin, get_user, owner_collection
+from Handlers.Antispam.antispamGroupdisallowedCallback import antispam_group_disallowed_callback
 
 def antispam_group(message, bot):
     if message.chat.type != "private":
@@ -38,3 +39,10 @@ def antispam_group(message, bot):
                                 bot.send_message(message.chat.id, f"[{adminId}](tg://user?id={adminId}): you are a Admin in this Group, can you start this Bot [{bot.get_me().id}](tg://user?id={bot.get_me().id}) to approve or disallow the links that the users send" , parse_mode = "Markdown")
         else:
             bot.send_message(message.chat.id, "Please make me admin to activate antispam on uls")
+
+
+    # antispam group disallowd button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_approve_'))
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_disallowed_'))
+    def handle_antispam_group_disallowed_callback(call):
+        antispam_group_disallowed_callback(bot, call)
