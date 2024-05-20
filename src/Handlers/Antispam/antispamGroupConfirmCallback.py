@@ -29,5 +29,5 @@ def antispam_group_confirm_callback(call, bot):
 
     # antispam group yes button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_activation_'))
-    def handle_antispam_group_yes_callback(call):
+    def handle_antispam_group_activation_callback(call):
         antispam_group_activation_callback(bot, call)

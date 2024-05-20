@@ -1,4 +1,5 @@
 from telebot import types
+from Database.MongoDB import get_owner
 
 def admins_callback(call, bot):
     # Initial message with inline keyboard
