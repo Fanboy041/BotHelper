@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import admin_collection
+from Handlers.Admins.removeAdminYesCallback import remove_admin_yes_callback
 
 def remove_admin_confirm_callback(call, bot):
     admin_id = int(call.data.split('remove_admin_confirm_')[1])
@@ -15,3 +16,8 @@ def remove_admin_confirm_callback(call, bot):
         call.message.chat.id,
         call.message.message_id, parse_mode='HTML', reply_markup=keyboard
     )
+
+    # Remove admin yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_yes_'))
+    def handle_remove_admin_yes_callback(call):
+        remove_admin_yes_callback(call, bot)

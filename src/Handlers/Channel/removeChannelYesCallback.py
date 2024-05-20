@@ -1,5 +1,5 @@
 from Database.MongoDB import channel_collection
-from Handlers.Channel.removeChannelCallback import remove_channel_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def remove_channel_yes_callback(call, bot):
     parts = call.data.split('_')
@@ -11,11 +11,11 @@ def remove_channel_yes_callback(call, bot):
             # If the callback was yes, remove the channel from channel collection
             if channel_collection.find_one({'chat_id': channel_id}):
                 channel_collection.delete_one({'chat_id': channel_id})
-                remove_channel_callback(call, bot)
+
                 bot.send_message(call.message.chat.id, f"channel with ID {channel_id} removed successfully.")
             else:
                 bot.send_message(call.message.chat.id, f"channel with ID {channel_id} not found.")
-        elif action == 'back':
-            remove_channel_callback(call, bot)
+
+        back_to_settings_menu_callback(call, bot)
     else:
         bot.send_message(call.message.chat.id, "Invalid action data.")

@@ -8,6 +8,7 @@ def add_group_chat_id(message, bot):
 
     if new_chat_member.username == bot.get_me().username:
         save_group(group_name, group_username, group_id)
+        bot.send_message(message.chat.id, "make sure that the Bot is admin on the Group")
 
     administrators = bot.get_chat_administrators(group_id)
 

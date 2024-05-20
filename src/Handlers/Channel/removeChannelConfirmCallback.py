@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import channel_collection
+from Handlers.Channel.removeChannelYesCallback import remove_channel_yes_callback
 
 def remove_channel_confirm_callback(call, bot):
     channel_id = int(call.data.split('remove_channel_confirm_')[1])
@@ -14,3 +15,8 @@ def remove_channel_confirm_callback(call, bot):
         f"Are you sure you want to remove this channel:\n\nName: <b>{fullname}</b>\nUsername: @{username}\nUserID: <code>{channel_id}</code>\n\nThis action can't be undone ?",
         call.message.chat.id,
         call.message.message_id, parse_mode='HTML', reply_markup=keyboard)
+
+    # Remove channel yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_yes_'))
+    def handle_remove_channel_yes_callback(call):
+        remove_channel_yes_callback(call,bot)
