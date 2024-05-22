@@ -1,30 +1,25 @@
-# removeGroupYesCallback.py
+
 from Database.MongoDB import get_group, group_collection
-from Handlers.Antispam.antispamGroupCallback import antispam_group_callback
+from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def antispam_group_activation_callback(bot, call):
     parts = call.data.split('_')
-    # Check if there are enough parts to unpack
-    if len(parts) >= 3:
-        action, group_id = parts[2], int(parts[3])  # Correct the unpacking
+    group_id = int(parts[3])
 
-    if action == 'activation':
-        # If the callback was yes, antispam the group
-        if get_group(group_id)["is_antispam"] == False:
+    if get_group(group_id)["is_antispam"] == False:
+
+        # Check if the bot is not admin in the group
+        if bot.get_chat_member(group_id, bot.get_me().id).status == "administrator":
             group_collection.update_one({"chat_id": group_id}, {"$set": {"is_antispam": True}})
             bot.send_message(call.message.chat.id, "Antispam is Activated")
-            bot.send_message(call.message.chat.id, "make sure that the Bot is admin on the Group")
             bot.send_message(group_id, "Antispam is Activated")
+        else:
+            bot.send_message(call.message.chat.id, "Sorry, can't activate the antispam feature\nPlease promote me to admin in the group at first")
 
-        else: 
-            group_collection.update_one({"chat_id": group_id}, {"$set": {"is_antispam": False}})
-            bot.send_message(call.message.chat.id, "Antispam is Deactivated")
-            bot.send_message(group_id, "Antispam is Deactivated")
-            
-        antispam_group_callback(call, bot)
+    else: 
+        group_collection.update_one({"chat_id": group_id}, {"$set": {"is_antispam": False}})
+        bot.send_message(call.message.chat.id, "Antispam is Deactivated")
+        bot.send_message(group_id, "Antispam is Deactivated")
+    
 
-    elif action == 'back':
-        antispam_group_callback(call, bot)
-        
-    else:
-        bot.send_message(call.message.chat.id, "Invalid action data.")
+    back_to_settings_menu_callback(call, bot)

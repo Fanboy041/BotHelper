@@ -1,4 +1,6 @@
+from datetime import datetime, timedelta
 from Database.MongoDB import get_admin, get_user, owner_collection
+from telebot import types
 
 def kick_user_from_group_callback(bot, call):
     user_id = int(call.data.split('_')[2])
@@ -23,7 +25,7 @@ def kick_user_from_group_callback(bot, call):
         bot.send_message(call.message.chat.id, "Done!")
 
         if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
-            bot.send_message(user_id, f"you kicked from this group {group_name} by sending this Link: \n [{text}")
+            bot.send_message(user_id, f"You've been kicked from this group {group_name} by sending this link:\n\n----------\n\n{text}\n\n----------\n\nGoodbye.")
         bot.ban_chat_member(group_id, user_id)
 
     else:

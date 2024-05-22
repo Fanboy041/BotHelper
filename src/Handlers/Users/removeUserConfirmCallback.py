@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_user
+from Handlers.Users.removeUserYesCallback import remove_user_yes_callback
 
 def remove_user_confirm_callback(call, bot):
     user_id = int(call.data.split('remove_user_confirm_')[1])
@@ -14,3 +15,8 @@ def remove_user_confirm_callback(call, bot):
         f"Are you sure you want to remove this user:\n\nName: <b>{fullname}</b>\nUsername: @{username}\nUserID: <code>{user_id}</code>\n\nThis action can't be undone ?",
         call.message.chat.id,
         call.message.message_id, parse_mode='HTML', reply_markup=keyboard)
+
+    # Remove user yes button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_yes_'))
+    def handle_remove_user_yes_callback(call):
+        remove_user_yes_callback(call, bot)
