@@ -10,7 +10,7 @@ def add_admin_callback(call, bot):
     
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_admins_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='admins_menu')
     keyboard.add(back_button)
 
     bot.edit_message_text(

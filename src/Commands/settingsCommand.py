@@ -22,7 +22,7 @@ def settings_command(message, bot):
         channels_button = types.InlineKeyboardButton("🔈 Channels", callback_data='channels_menu')
         groups_button = types.InlineKeyboardButton("👥 Groups", callback_data='groups_menu')
         users_button = types.InlineKeyboardButton("👤 Users", callback_data='users_menu')
-        antispam_button = types.InlineKeyboardButton("📨 Antispam", callback_data='antispam_group_callback')
+        antispam_button = types.InlineKeyboardButton("📨 Antispam", callback_data='antispam_group')
 
         if owner['chat_id'] == user_id:
             # Initial message with inline keyboard
@@ -45,7 +45,6 @@ def settings_command(message, bot):
 
     # Admins menu and back to Admins menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'admins_menu')
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_admins_menu')
     def handle_admins_callback(call):
         admins_callback(call, bot)
 
@@ -68,8 +67,7 @@ def settings_command(message, bot):
         users_menu_callback(call, bot)
 
     # Antispam group and back to Antispam group button
-    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group_callback')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_back_'))
+    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group')
     def handle_antispam_group_callback(call):
         antispam_group_callback(call, bot)
 

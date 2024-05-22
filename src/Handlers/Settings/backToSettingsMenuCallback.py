@@ -16,7 +16,7 @@ def back_to_settings_menu_callback(call, bot):
     channels_button = types.InlineKeyboardButton("🔈 Channels", callback_data='channels_menu')
     groups_button = types.InlineKeyboardButton("👥 Groups", callback_data='groups_menu')
     users_button = types.InlineKeyboardButton("👤 Users", callback_data='users_menu')
-    antispam_button = types.InlineKeyboardButton("📨 Antispam", callback_data='antispam_group_callback')
+    antispam_button = types.InlineKeyboardButton("📨 Antispam", callback_data='antispam_group')
 
     if owner['chat_id'] == user_id:
         # Initial message with inline keyboard
