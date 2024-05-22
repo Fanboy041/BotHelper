@@ -27,7 +27,12 @@ def send_welcome(message, bot):
             # Save the user info in the database
             save_user(full_name, username, chat_id, total_users)
 
-            bot.send_message(message.chat.id, "Welcome")
+            if message.chat.id == get_owner()['chat_id']:
+                bot.send_message(message.chat.id, f"Hey owner, <b>{full_name}</b>!\n\nThank you for interacting with me. I'm excited to have you on board. 🌹", parse_mode='HTML')
+            elif get_admin(chat_id) != None and message.chat.id == get_admin(chat_id)['chat_id']:
+                bot.send_message(message.chat.id, f"Hey admin, <b>{full_name}</b>!\n\nThank you for interacting with me. I'm excited to have you on board. 🌹", parse_mode='HTML')
+            else:
+                bot.send_message(message.chat.id, f"Welcome, <b>{full_name}</b>!\n\nThank you for interacting with our Telegram bot. We're excited to have you on board. 🌹", parse_mode='HTML')
         
     else:
         bot_username = bot.get_me().username

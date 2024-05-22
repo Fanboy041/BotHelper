@@ -32,7 +32,7 @@ def groups_menu_callback(call, bot):
     show_group = types.InlineKeyboardButton("Show groups 📝", callback_data='show_groups')
     back_to_settings_menu = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_settings_menu')
 
-    if get_owner()['chat_id'] == call.message.from_user.id:
+    if get_owner()['chat_id'] == call.message.chat.id:
         keyboard.add(add_group, remove_group, show_group, back_to_settings_menu)
     else:
         keyboard.add(add_group, show_group, back_to_settings_menu)

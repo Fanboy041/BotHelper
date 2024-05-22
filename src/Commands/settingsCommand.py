@@ -16,6 +16,7 @@ def settings_command(message, bot):
         admin = get_admin(user_id) 
         user = get_user(user_id)
 
+        # Create inline keyboard and locks the row width to 2
         keyboard = types.InlineKeyboardMarkup(row_width=2)
         admins_button = types.InlineKeyboardButton("🥷🏼 Bot Admins", callback_data='admins_menu')
         channels_button = types.InlineKeyboardButton("🔈 Channels", callback_data='channels_menu')
