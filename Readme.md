@@ -1,4 +1,4 @@
-# Telegram Bot Template
+# BotHelper
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ This project provides a template for creating a Telegram bot using Python. Befor
     ```
 6. In the terminal, clone the repository:
     ```
-    git clone https://github.com/Fanboy041/Telegram-Bot-Template.git
+    git clone https://github.com/Fanboy041/BotHelper.git
     ```
 
 ## Setting Up the Workspace
