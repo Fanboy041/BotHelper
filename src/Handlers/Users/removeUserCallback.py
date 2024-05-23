@@ -11,7 +11,7 @@ def remove_user_callback(call, bot):
 
 
     # Add a "Back" button
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_users_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='users_menu')
     keyboard.add(back_button)
 
     bot.edit_message_text("Select an user to remove:", call.message.chat.id, call.message.message_id, reply_markup=keyboard)

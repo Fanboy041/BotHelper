@@ -50,19 +50,16 @@ def settings_command(message, bot):
 
     # Channels menu and back to Channels menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'channels_menu')
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_channels_menu')
     def handle_channel_callback(call):
         channels_menu_callback(call, bot)
 
     # Groups menu and back to Groups menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'groups_menu')
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_groups_menu')
     def handle_group_callback(call):
         groups_menu_callback(call, bot)
 
     # Users menu and back to users menu button
     @bot.callback_query_handler(func=lambda call: call.data == 'users_menu')
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_users_menu')
     def handle_user_menu_callback(call):
         users_menu_callback(call, bot)
 

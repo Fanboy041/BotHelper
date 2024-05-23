@@ -8,7 +8,7 @@ def remove_user_confirm_callback(call, bot):
     username = get_user( user_id)['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_user_yes_{user_id}')
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'remove_user_back_{user_id}')  # Add a Back button
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='remove_user')
     keyboard.add(yes_button, back_button)
 
     bot.edit_message_text(

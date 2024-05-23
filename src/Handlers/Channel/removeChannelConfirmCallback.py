@@ -8,7 +8,7 @@ def remove_channel_confirm_callback(call, bot):
     username = channel_collection.find_one({'chat_id': channel_id})['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_channel_yes_{channel_id}')
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'remove_channel_back_{channel_id}')  # Add a Back button
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='remove_channel')  # Add a Back button
     keyboard.add(yes_button, back_button)
 
     bot.edit_message_text(

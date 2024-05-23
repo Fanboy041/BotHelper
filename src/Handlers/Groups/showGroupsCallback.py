@@ -4,7 +4,7 @@ from Database.MongoDB import get_groups
 def show_groups_callback(call, bot):
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_groups_menu')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='groups_menu')
     keyboard.add(back_button)
 
     # Get all groups info from the collection and send them as a message to the chat

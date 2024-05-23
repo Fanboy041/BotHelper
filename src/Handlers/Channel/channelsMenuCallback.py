@@ -33,7 +33,6 @@ def channels_menu_callback(call, bot):
 
     # Remove channel and remove channel back button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_channel')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_back_'))
     def handle_remove_channel_callback(call):
         remove_channel_callback(call, bot)
 

@@ -3,19 +3,14 @@ from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_c
 
 def remove_user_yes_callback(call, bot):
     parts = call.data.split('_')
-    # Check if there are enough parts to unpack
-    if len(parts) >= 3:
-        action, user_id = parts[2], int(parts[3])  # Correct the unpacking
+    user_id = int(parts[3])
 
-        if action == 'yes':
-            # If the callback was yes, remove the user from user collection
-            if get_user(                                                                          user_id):
-                delete_user(user_id)
 
-                bot.send_message(call.message.chat.id, f"user with ID {user_id} removed successfully.")
-            else:
-                bot.send_message(call.message.chat.id, f"user with ID {user_id} not found.")
+    if get_user(user_id):
+        delete_user(user_id)
 
-        back_to_settings_menu_callback(call, bot)  # Go back to the "Select an user ID to remove:" message
+        bot.send_message(call.message.chat.id, f"user with ID {user_id} removed successfully.")
     else:
-        bot.send_message(call.message.chat.id, "Invalid action data.")
+        bot.send_message(call.message.chat.id, f"user with ID {user_id} not found.")
+
+    back_to_settings_menu_callback(call, bot)
