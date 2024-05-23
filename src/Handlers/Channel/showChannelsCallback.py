@@ -2,9 +2,9 @@ from telebot import types
 from Database.MongoDB import get_channels
 
 def show_channels_callback(call, bot):
-    channels = get_channels()
     
     if len(list(get_channels())) > 0:
+        channels = get_channels()
         keyboard = types.InlineKeyboardMarkup(row_width=1)
         for channel in channels:
             button = types.InlineKeyboardButton(f"{channel['full_name']}", callback_data=f'view_channel_{channel["chat_id"]}')
