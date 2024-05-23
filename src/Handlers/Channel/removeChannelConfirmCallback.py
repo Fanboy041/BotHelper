@@ -1,11 +1,11 @@
 from telebot import types
-from Database.MongoDB import channel_collection
+from Database.MongoDB import get_channel
 from Handlers.Channel.removeChannelYesCallback import remove_channel_yes_callback
 
 def remove_channel_confirm_callback(call, bot):
     channel_id = int(call.data.split('remove_channel_confirm_')[1])
-    fullname = channel_collection.find_one({'chat_id': channel_id})['full_name']
-    username = channel_collection.find_one({'chat_id': channel_id})['username']
+    fullname = get_channel(channel_id)['full_name']
+    username = get_channel(channel_id)['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_channel_yes_{channel_id}')
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data='remove_channel')  # Add a Back button

@@ -1,11 +1,11 @@
 from telebot import types
-from Database.MongoDB import admin_collection
+from Database.MongoDB import get_admin
 from Handlers.Admins.removeAdminYesCallback import remove_admin_yes_callback
 
 def remove_admin_confirm_callback(call, bot):
     admin_id = int(call.data.split('remove_admin_confirm_')[1])
-    fullname = admin_collection.find_one({'chat_id': admin_id})['full_name']
-    username = admin_collection.find_one({'chat_id': admin_id})['username']
+    fullname = get_admin(admin_id)['full_name']
+    username = get_admin(admin_id)['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_admin_yes_{admin_id}')
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data='remove_admin')  # Add a Back button

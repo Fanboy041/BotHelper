@@ -14,10 +14,10 @@ def channels_menu_callback(call, bot):
     show_channel = types.InlineKeyboardButton("Show Channels 📝", callback_data='show_channels')
     back_to_settings_menu = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_settings_menu')
 
-    if get_owner()['chat_id'] == call.message.from_user.id:
+    if get_owner()['chat_id'] == call.message.chat.id:
         keyboard.add(add_cahnnel, remove_channel, show_channel, back_to_settings_menu)
     else:
-        keyboard.add(show_channel, back_to_settings_menu)
+        keyboard.add(add_cahnnel, show_channel, back_to_settings_menu)
 
     bot.edit_message_text("📊 Channels Control Panel:", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')
 
