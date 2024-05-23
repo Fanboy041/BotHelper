@@ -9,7 +9,7 @@
 5. [Running the Bot](#running-the-bot)
 6. [Project Structure](#project-structure)
 7. [Documentation](#documentation)
-t
+
 ## Introduction
 
 This project provides a template for creating a Telegram bot using Python. Before getting started, ensure you have installed Git and the latest version of Python.
