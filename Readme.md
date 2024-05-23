@@ -1,4 +1,4 @@
-# Telegram Bot Template
+# BotHelper
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ This project provides a template for creating a Telegram bot using Python. Befor
     ```
 6. In the terminal, clone the repository:
     ```
-    git clone https://github.com/Fanboy041/Telegram-Bot-Template.git
+    git clone https://github.com/Fanboy041/BotHelper.git
     ```
 
 ## Setting Up the Workspace
@@ -88,32 +88,36 @@ python ./src/main.py
 │    │    │    ├── removeAdminYesCallback.py
 │    │    │    └── showAdminsCallback.py
 │    │    ├── Antispam
+│    │    │    ├── antispamGroupActicationCallback.py
 │    │    │    ├── antispamGroupCallback.py
 │    │    │    ├── antispamGroupConfirmCallback.py
-│    │    │    ├── antispamGroupdisallowedCallback.py
-│    │    │    ├── antispamGroupYesCallback.py
+│    │    │    ├── antispamGroupDecisionCallback.py
+│    │    │    ├── banUserFromGroupCallback.py
 │    │    │    └── kickUserFromGroupCallback.py
 │    │    ├── Channel
 │    │    │    ├── addChannelCallback.py
 │    │    │    ├── channelsMenuCallback.py
+│    │    │    ├── removeChannelCallback.py
 │    │    │    ├── removeChannelConfirmCallback.py
 │    │    │    ├── removeChannelYesCallback.py
 │    │    │    └── showChannelsCallback.py
 │    │    ├── Groups
-│    │    │    ├── addGroupCallback.py
 │    │    │    ├── groupsMenuCallback.py
 │    │    │    ├── removeGroupCallback.py
 │    │    │    ├── removeGroupConfirmCallback.py
+│    │    │    ├── removeGroupYesCallback.py
 │    │    │    └── showGroupsCallback.py
 │    │    ├── Settings
 │    │    │    └── backToSettingsMenuCallback.py
-│    │    ├── Users
+│    │    └── Users
 │    │         ├── removeUserCallback.py
 │    │         ├── removeUserConfirmCallback.py
 │    │         ├── removeUserYesCallback.py
-│    │         └── showUsersCallback.py
+│    │         ├── showUsersCallback.py
+│    │         └── antispamGroupDecisionCallback.py
 │    └── main.py
 ├── .gitignore
+├── LICENSE
 ├── README.md
 └── requirements.txt
 ```
