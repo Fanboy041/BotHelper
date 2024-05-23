@@ -26,7 +26,6 @@ def admins_callback(call, bot):
 
     # Remove admin button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_admin')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_admin_back_'))
     def handle_remove_admin_callback(call):
         remove_admin_callback(call, bot)
     

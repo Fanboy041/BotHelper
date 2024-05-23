@@ -1,17 +1,16 @@
 from telebot import types
-from Database.MongoDB import channel_collection
+from Database.MongoDB import get_channels
 
 def show_channels_callback(call, bot):
 
-    channel_list = channel_collection.find_one()
-    if channel_list:
-        # Add a back button to go back
-        keyboard = types.InlineKeyboardMarkup(row_width=1)
-        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_channels_menu')
-        keyboard.add(back_button)
-        
-        # Display the channel username
-        bot.edit_message_text(f"Channel username: @{channel_list['username']}", call.message.chat.id, call.message.message_id, reply_markup=keyboard)
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='channels_menu')
+    keyboard.add(back_button)
+
+    if len(list(get_channels())) > 0:
+        channels = get_channels()
+        channel_list = "\n\n".join([f"<b>{channel['full_name']}</b> (@{channel['username']})" for channel in channels])
+        bot.edit_message_text("Channels:\n\n" + channel_list, call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='HTML')
 
     else:
-        bot.send_message(call.message.chat.id, "Channel username not set.")
+        bot.send_message(call.message.chat.id, "There are no channels.")
