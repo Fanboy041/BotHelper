@@ -221,4 +221,19 @@ def save_group(full_name, username, chat_id):
         
     else:
         group_collection.insert_one(group_info)
-    
+
+# Create a function to save the admin information to the database
+def delete_admin(chat_id):
+    chat_id_owner = get_owner()['chat_id']
+
+    admin = get_admin(chat_id)
+    full_name = admin['full_name']
+    username = admin['username']
+
+    admin_collection.delete_one({'chat_id': chat_id})
+
+    total_users = user_collection.count_documents({}) + 1
+    save_user(full_name, username, chat_id, total_users)
+
+    bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) were demoted to User successfully.")
+    bot.send_message(chat_id, f"You {full_name} (@{username}) were demoted to User successfully.")

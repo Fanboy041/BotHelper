@@ -1,47 +1,29 @@
+# addAdminCallback.py
 from telebot import types
-from Database.MongoDB import save_admin, get_user, delete_user
+from Database.MongoDB import get_users
+from Handlers.Admins.addAdminConfirmCallback import add_admin_confirm_callback
 
 def add_admin_callback(call, bot):
-
-    # If back_to_admins_menu button pressed clear the step handler
-    if call.data == 'admins_menu':
-        bot.clear_step_handler_by_chat_id(call.message.chat.id)
-        return
-    
     # Add a "Back" button
     keyboard = types.InlineKeyboardMarkup(row_width=1)
     back_button = types.InlineKeyboardButton("Back 🔙", callback_data='admins_menu')
-    keyboard.add(back_button)
+    
 
-    bot.edit_message_text(
-        "⏩ Forward a message from the user you want to add as an admin.",
-        call.message.chat.id,
-        call.message.message_id,
-        reply_markup=keyboard,
-        parse_mode='Markdown'
-        )
-    # Set the next state to handle the forwarded message
-    bot.register_next_step_handler(call.message, process_admin_forwarded_message, bot)
+    #get all users from the collection and send them as buttons to the chat
+    if len(list(get_users())) > 0:
+        users = get_users()
+        for user in users:
+            users_button = types.InlineKeyboardButton(f"{user['full_name']}", callback_data=f'add_admin_confirm_{user["chat_id"]}')
+            
+            keyboard.add(users_button)
 
-def process_admin_forwarded_message(message, bot):
-    try:
+        keyboard.add(back_button)
+        bot.edit_message_text("Users:\n\n", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='HTML')
+    else:
+        # There is no users
+        bot.send_message(call.message.chat.id, "There are no users.")
 
-        # Check if message.forward_from exists and has necessary attributes
-        if message.forward_from and hasattr(message.forward_from, 'id') and hasattr(message.forward_from, 'first_name'):
-            # Extract user information from the forwarded message
-            user_id = message.forward_from.id
-            username = message.forward_from.username
-            full_name = (
-                f"{message.forward_from.first_name} {message.forward_from.last_name}"
-                if message.forward_from.last_name
-                else message.forward_from.first_name
-            )
-            save_admin(full_name, username, user_id)
-        else:
-            bot.send_message(
-                message.chat.id, "Error: The forwarded message doesn't contain valid user information. Make sure the account is not hidden."
-            )
-    except Exception as e:
-        bot.send_message(message.chat.id, f"Error: {str(e)}")
-
-
+    # make user admin in Bot button
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('add_admin_confirm_'))
+    def handle_make_user_admin_callback(call):
+        add_admin_confirm_callback(call, bot)
