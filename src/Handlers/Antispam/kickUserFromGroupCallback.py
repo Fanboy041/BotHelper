@@ -7,10 +7,13 @@ def kick_user_from_group_callback(bot, call):
     group_id = call.data.split('_')[3]
 
     user_first_name = call.message.text.split("'")[1]
-    text = call.message.text.split("[")[1]
-    group_name = call.message.text.split("'")[3]
-    text = text.split("]")[0]
-
+    if "[" in call.message.text:
+        text = call.message.text.split("[")[1]
+        group_name = call.message.text.split("'")[3]
+        text = text.split("]")[0]
+    else:
+        text = None
+        
     owner = None
     userIds = []
     administrators = bot.get_chat_administrators(group_id)
@@ -25,8 +28,14 @@ def kick_user_from_group_callback(bot, call):
         bot.send_message(call.message.chat.id, "Done!")
 
         if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
-            bot.send_message(user_id, f"You've been kicked from this group {group_name} by sending this link:\n\n----------\n\n{text}\n\n----------\n\nGoodbye.")
+            if text is not None:
+                bot.send_message(user_id, f"you kicked from this group {group_name} by sending this Link: \n [{text}]")
+            else:
+                bot.send_message(user_id, "you kicked from this group")
         bot.ban_chat_member(group_id, user_id)
 
     else:
-        bot.send_message(owner, f"i want to kick this user {user_first_name} '{user_id}', because of sending this Link {text} in this Group {group_name}")
+        if text is not None:
+            bot.send_message(owner, f"i want to kick this user {user_first_name} [{user_id}](tg://user?id={user_id}), because of sending this Link {text} in this Group {group_name}", parse_mode = "Markdown")
+        else:
+            bot.send_message(owner, f"i want to kick this user {user_first_name} [{user_id}](tg://user?id={user_id})", parse_mode = "Markdown")

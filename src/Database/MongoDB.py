@@ -70,6 +70,7 @@ group_schema = {
     "username": str,
     "chat_id": int,
     "is_antispam": bool,
+    "users": []
 }
 
 # Define the collections for owner, admins, users, channels, and groups
@@ -119,6 +120,9 @@ def delete_group(chat_id):
 
 def delete_user(chat_id):
     return user_collection.delete_one({'chat_id': chat_id})
+
+def delete_user_from_Group(chat_id, user_id):
+    return group_collection.update_one({"chat_id": chat_id}, {"$unset": { "users": user_id }})
 
 # Create a function to save the owner information to the database
 def save_owner(full_name, username, chat_id):
@@ -215,4 +219,8 @@ def save_group(full_name, username, chat_id):
         
     else:
         group_collection.insert_one(group_info)
-    
+
+# Create a function to save the user in group information to the database
+def save_user_in_group(chat_id, user_id):
+    if user_id not in get_group(chat_id)['users']:
+        group_collection.update_one({"chat_id": chat_id}, {"$push": {"users": user_id}})

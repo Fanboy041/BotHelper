@@ -7,9 +7,13 @@ def ban_user_from_group_callback(bot, call):
     group_id = call.data.split('_')[3]
 
     user_first_name = call.message.text.split("'")[1]
-    text = call.message.text.split("[")[1]
-    group_name = call.message.text.split("'")[3]
-    text = text.split("]")[0]
+    if "[" in call.message.text:
+        text = call.message.text.split("[")[1]
+        group_name = call.message.text.split("'")[3]
+        text = text.split("]")[0]
+    else:
+        text = None
+    
 
     owner = None
     userIds = []
@@ -33,30 +37,33 @@ def ban_user_from_group_callback(bot, call):
         bot.send_message(call.message.chat.id, f"How long would you like to ban this user '{user_first_name}'?", parse_mode='HTML', reply_markup=keyboard)
 
     else:
-        bot.send_message(owner, f"i want to ban this admin {user_first_name} '{user_id}', because of sending this Link {text} in this Group {group_name}")
+        if text is not None:
+            bot.send_message(owner, f"i want to ban this admin {user_first_name} [{user_id}](tg://user?id={user_id}), because of sending this Link {text} in this Group {group_name}", parse_mode = "Markdown")
+        else:
+            bot.send_message(owner, f"i want to ban this admin {user_first_name} [{user_id}](tg://user?id={user_id})", parse_mode = "Markdown")
 
     
     # ban user from group for half an hour button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('half_hour'))
     def handle_half_an_hour_callback(call):
-        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group_name, text, timedelta(minutes=30))
+        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, text, timedelta(minutes=30))
 
     # ban user from group for one hour button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('one_hour'))
     def handle_one_hour_callback(call):
-        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group_name, text, timedelta(hours=1))
+        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, text, timedelta(hours=1))
 
     # ban user from group for one day button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('one_day'))
     def handle_one_hday_callback(call):
-        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group_name, text, timedelta(days=1))
+        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, text, timedelta(days=1))
 
     # ban user from group for one week button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('one_week'))
     def handle_one_week_callback(call):
-        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group_name, text, timedelta(weeks=1))
+        ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, text, timedelta(weeks=1))
 
-def ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group_name, text, time):
+def ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, text, time):
 
     chatPermissions = types.ChatPermissions(can_send_messages= False,
                                                 can_send_audios= False,
@@ -79,4 +86,7 @@ def ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group
     bot.send_message(call.message.chat.id, "Done!")
     
     if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
-            bot.send_message(user_id, f"you banned from this group {group_name} by sending this Link: \n [{text}]")
+        if text is not None:
+            bot.send_message(user_id, f"you banned from this group [{group_id}](tg://user?id={group_id}) by sending this Link: \n [{text}]", parse_mode = "Markdown")
+        else:
+            bot.send_message(user_id, f"you banned from this group [{group_id}](tg://user?id={group_id})", parse_mode = "Markdown")
