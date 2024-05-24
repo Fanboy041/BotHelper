@@ -20,6 +20,5 @@ def users_menu_callback(call, bot):
 
     # Remove user and remove user back button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_user')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_back_'))
     def handle_remove_user_callback(call):
         remove_user_callback(call, bot)
