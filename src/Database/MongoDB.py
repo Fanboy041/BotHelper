@@ -1,8 +1,6 @@
 import telebot, logging
 import os
-from telebot import types, util
 from pymongo.mongo_client import MongoClient
-from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,11 +16,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Create a new client and connect to the server
 client = MongoClient(uri)
 
-# Create "Permissions" database
+""" # Create "Permissions" database
 db = client.permissions # Permissions is the name of the database
 
 # Create "CGManaging" database
-db2 = client.managing
+db2 = client.managing """
 
 
 """ # Create the collections

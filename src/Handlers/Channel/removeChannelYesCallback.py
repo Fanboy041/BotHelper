@@ -6,6 +6,7 @@ def remove_channel_yes_callback(call, bot):
     channel_id = int(parts[3])
 
     if get_channel(channel_id):
+        bot.leave_chat(channel_id)
         delete_channel(channel_id)
 
         bot.send_message(call.message.chat.id, f"channel with ID {channel_id} removed successfully.")
