@@ -47,11 +47,5 @@ def groups_menu_callback(call, bot):
 
     # Remove group and remove group back button
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_group')
-    @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_group_back_'))
     def handle_remove_group_callback(call):
         remove_group_callback(call, bot)
-
-    # # Back to settings menu button
-    # @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
-    # def handle_back_to_settings_menu_callback(call):
-    #     back_to_settings_menu_callback(call, bot)

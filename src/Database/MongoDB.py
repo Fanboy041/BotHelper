@@ -105,13 +105,18 @@ def get_users():
     return user_collection.find()
 
 # Create a function to get the channel information from the database
-def get_channel():
-    return channel_collection.find_one()
+def get_channel(chat_id):
+    return channel_collection.find_one({"chat_id": chat_id})
+
+# Create a function to get all channels information from the database
+def get_channels():
+    return channel_collection.find()
 
 # Create a function to get the group information from the database
 def get_group(chat_id):
     return group_collection.find_one({"chat_id": chat_id})
 
+# Create a function to get all groups information from the database
 def get_groups():
     return group_collection.find()
 
@@ -120,6 +125,9 @@ def delete_group(chat_id):
 
 def delete_user(chat_id):
     return user_collection.delete_one({'chat_id': chat_id})
+
+def delete_channel(chat_id):
+    return channel_collection.delete_one({'chat_id': chat_id})
 
 def delete_user_from_Group(chat_id, user_id):
     return group_collection.update_one({"chat_id": chat_id}, {"$unset": { "users": user_id }})

@@ -8,7 +8,7 @@ def remove_group_confirm_callback(call, bot):
     username = get_group(group_id)['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'remove_group_yes_{group_id}')
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'remove_group_back_{group_id}')  # Add a Back button
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='remove_group')
     keyboard.add(yes_button, back_button)
 
     bot.edit_message_text(
