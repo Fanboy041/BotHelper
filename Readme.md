@@ -55,6 +55,12 @@ To start the bot, run:
 ```
 python ./src/main.py
 ```
+If you're using Termux, you need to add the following to the main script:
+```
+import dns.resolver
+dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+dns.resolver.default_resolver.nameservers=['8.8.8.8']
+```
 
 ## Project Structure
 
