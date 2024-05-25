@@ -1,7 +1,7 @@
 import telebot, logging
 import os
 import importlib
-from UFO import main
+# from UFO import main
 from telebot.types import ChatMemberUpdated
 from logging.handlers import RotatingFileHandler
 from dotenv import load_dotenv
@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Draw UFO in console
-main()
+# main()
 
 bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
 
