@@ -8,7 +8,7 @@ def add_admin_confirm_callback(call, bot):
     username = user_collection.find_one({'chat_id': admin_id})['username']
     keyboard = types.InlineKeyboardMarkup(row_width=2)
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'add_admin_yes_{admin_id}')
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'add_admin_back_{admin_id}')  # Add a Back button
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'add_admin')
     keyboard.add(yes_button, back_button)
 
     bot.edit_message_text(

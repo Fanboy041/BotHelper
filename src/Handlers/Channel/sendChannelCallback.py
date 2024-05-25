@@ -19,9 +19,11 @@ def send_channel_callback(call, bot):
     def handle_view_channel_yes_callback(call):
         parts = call.data.split('_')
         if parts[2] == "yes":
+            bot.delete_message(call.message.chat.id, call.message.id)
             bot.send_message(call.message.chat.id, "Send the button text and website separated by a dash (-)")
             bot.register_next_step_handler(call.message, process_buttons, call, bot, channel_id)
         elif parts[2] == "no":
+            bot.delete_message(call.message.chat.id, call.message.id)
             bot.send_message(call.message.chat.id, "What do you want to send to this channel?")
             bot.register_next_step_handler(call.message, process_sent_message2, bot, channel_id)
 
