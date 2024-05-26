@@ -1,7 +1,6 @@
 from telebot import types
 from Handlers.Groups.showGroupsCallback import show_groups_callback
 from Handlers.Groups.removeGroupCallback import remove_group_callback
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 from Database.MongoDB import get_owner
 
 def groups_menu_callback(call, bot):

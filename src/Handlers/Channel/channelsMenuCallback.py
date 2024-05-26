@@ -1,7 +1,6 @@
 from telebot import types
 from Handlers.Channel.removeChannelCallback import remove_channel_callback
 from Handlers.Channel.showChannelsCallback import show_channels_callback
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
 from Database.MongoDB import get_owner
 
 def channels_menu_callback(call, bot):
@@ -29,8 +28,3 @@ def channels_menu_callback(call, bot):
     @bot.callback_query_handler(func=lambda call: call.data == 'remove_channel')
     def handle_remove_channel_callback(call):
         remove_channel_callback(call, bot)
-
-    # Back to settings menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
-    def handle_back_to_settings_menu_callback(call):
-        back_to_settings_menu_callback(call, bot)
