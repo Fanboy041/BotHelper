@@ -1,6 +1,3 @@
-
-#todo: This file need to be checked for the clean code
-
 from telebot import types
 from Database.MongoDB import get_user, get_users, get_admin, get_admins, save_admin, delete_admin
 from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
@@ -23,14 +20,14 @@ def admins_callback(call, bot):
     def add_admin_callback(call):
         keyboard = types.InlineKeyboardMarkup(row_width=1)
         back_button = types.InlineKeyboardButton("Back 🔙", callback_data='admins_menu')
-        
+
 
         # Get all users from the collection and send them as buttons to the chat
         if len(list(get_users())) > 0:
             users = get_users()
             for user in users:
                 users_button = types.InlineKeyboardButton(f"{user['full_name']}", callback_data=f'add_admin_confirm_{user["chat_id"]}')
-                
+
                 keyboard.add(users_button)
 
             keyboard.add(back_button)
@@ -49,7 +46,7 @@ def admins_callback(call, bot):
             for admin in admins:
                 button = types.InlineKeyboardButton(f"{admin['full_name']}", callback_data=f'remove_admin_confirm_{admin["chat_id"]}')
                 keyboard.add(button)
-            
+
             back_button = types.InlineKeyboardButton("Back 🔙", callback_data='admins_menu')
             keyboard.add(back_button)
 
@@ -87,7 +84,7 @@ def admins_callback(call, bot):
         username = user['username']
         full_name = user['full_name']
         save_admin(full_name, username, user_id)
-        
+
         back_to_settings_menu_callback(call, bot)
 
         # Remove admin confirm button

@@ -1,4 +1,3 @@
-# backToSettingsMenuCallback.py
 from telebot import types
 from Database.MongoDB import get_owner, get_admin, get_user
 
@@ -8,7 +7,7 @@ def back_to_settings_menu_callback(call, bot):
 
     # Check if the user is owner
     owner = get_owner()
-    admin = get_admin(user_id) 
+    admin = get_admin(user_id)
     user = get_user(user_id)
 
     keyboard = types.InlineKeyboardMarkup(row_width=2)

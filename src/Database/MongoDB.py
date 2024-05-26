@@ -117,6 +117,22 @@ def get_group(chat_id):
 def get_groups():
     return group_collection.find()
 
+# Create a function to delete the admin information from the database
+def delete_admin(chat_id):
+    chat_id_owner = get_owner()['chat_id']
+
+    admin = get_admin(chat_id)
+    full_name = admin['full_name']
+    username = admin['username']
+
+    admin_collection.delete_one({'chat_id': chat_id})
+
+    total_users = user_collection.count_documents({}) + 1
+    save_user(full_name, username, chat_id, total_users)
+
+    bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) were demoted to User successfully.")
+    bot.send_message(chat_id, f"You {full_name} (@{username}) were demoted to User successfully.")
+
 def delete_group(chat_id):
     return group_collection.delete_one({'chat_id': chat_id})
 
@@ -134,10 +150,10 @@ def save_owner(full_name, username, chat_id):
         "chat_id": chat_id
     }
     owner_existed = owner_collection.find_one({"chat_id": chat_id}) is not None
-    
+
     if owner_existed:
         owner_collection.update_one({"chat_id": chat_id}, {"$set": owner_info})
-        
+
     else:
         owner_collection.insert_one(owner_info)
 
@@ -159,7 +175,7 @@ def save_admin(full_name, username, chat_id):
             admin_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
             bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) updated successfully.")
             bot.send_message(chat_id, f"Admin {full_name} (@{username}) updated successfully.")
-        
+
         else:
             admin_collection.insert_one(admin_info)
             bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) added successfully.")
@@ -174,22 +190,22 @@ def save_user(full_name, username, chat_id, total_users):
         "total_users": total_users
     }
     user_existed = user_collection.find_one({"chat_id": chat_id}) is not None
-    
+
     if user_existed:
         user_collection.update_one({"chat_id": chat_id}, {"$set": {"full_name": full_name, "username": username}})
-        
+
     else:
         if (owner_collection.find_one({"chat_id": chat_id}) is None) and (get_admin(chat_id) is None):
             user_collection.insert_one(user_info)
             # Send message to owner when a new member joined
 
             user = get_user(chat_id)
-            
+
             # Get chat ID from owner document
             chat_id = owner_collection.find_one()['chat_id']
             if chat_id != user['chat_id']:
                 bot.send_message(chat_id, f"🔥 New member:\n\n👤 <b>{full_name}</b>\n\nTotal users: {total_users}", parse_mode='HTML' )
-        
+
 
 # Create a function to save the channel information to the database
 def save_channel(full_name, username, chat_id):
@@ -199,10 +215,10 @@ def save_channel(full_name, username, chat_id):
         "chat_id": chat_id
     }
     channel_existed = channel_collection.find_one({"chat_id": chat_id}) is not None
-    
+
     if channel_existed:
         channel_collection.update_one({"chat_id": chat_id}, {"$set": channel_info})
-        
+
     else:
         channel_collection.insert_one(channel_info)
 
@@ -215,25 +231,9 @@ def save_group(full_name, username, chat_id):
         "is_antispam": False
     }
     group_existed = group_collection.find_one({"chat_id": chat_id}) is not None
-    
+
     if group_existed:
         group_collection.update_one({"chat_id": chat_id}, {"$set": group_info})
-        
+
     else:
         group_collection.insert_one(group_info)
-
-# Create a function to save the admin information to the database
-def delete_admin(chat_id):
-    chat_id_owner = get_owner()['chat_id']
-
-    admin = get_admin(chat_id)
-    full_name = admin['full_name']
-    username = admin['username']
-
-    admin_collection.delete_one({'chat_id': chat_id})
-
-    total_users = user_collection.count_documents({}) + 1
-    save_user(full_name, username, chat_id, total_users)
-
-    bot.send_message(chat_id_owner, f"Admin {full_name} (@{username}) were demoted to User successfully.")
-    bot.send_message(chat_id, f"You {full_name} (@{username}) were demoted to User successfully.")

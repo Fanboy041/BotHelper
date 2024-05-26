@@ -1,7 +1,7 @@
 from Database.MongoDB import delete_group
 
 def delete_group_chat_id(message, bot):
-    
+
     if message.left_chat_member.username == bot.get_me().username:
 
         delete_group(message.chat.id)

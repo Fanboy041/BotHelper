@@ -28,7 +28,7 @@ def antispam_group_decision_callback(bot, call):
         bot.delete_message(admin, message.message_id - len(adminsIds))
 
     if action == "disallow":
-    
+
         if owner_collection.find_one({"chat_id": user_id}) is None and get_user(user_id) is None and get_admin(user_id) is None:
             if user_id == 1087968824:
                 bot.send_message(group_id, f"[{user_id}](tg://user?id={user_id}): this Admin is Annonymous that's the reason why i can't send him a message", parse_mode = "Markdown")
@@ -45,7 +45,7 @@ def antispam_group_decision_callback(bot, call):
 
         bot.send_message(call.message.chat.id, f"You have disallowed this link:\n\n----------\n\n{text}\n\n----------\n\nSender: '{user_first_name}'\n\nGroup: '{group_name}'"+ 
                         f"\n What penalty do you want to impose on this user '{user_first_name}'?", parse_mode='HTML', reply_markup=keyboard)
-    
+
     elif action == "approve":
 
         if owner_collection.find_one({"chat_id": user_id}) is None and get_user(user_id) is None and get_admin(user_id) is None:
@@ -58,7 +58,7 @@ def antispam_group_decision_callback(bot, call):
 
         bot.send_message(call.message.chat.id, f"Great, you have approved this link: {text}\n\nthat sent from: [{user_first_name}](tg://user?id={user_id})")
         bot.send_message(group_id, f"Admin has approved [{user_first_name}](tg://user?id={user_id})'s message:\n\n----------\n\n{text}\n\n----------", parse_mode = "Markdown")
-        
+
     # kick user from group button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('kick_user_'))
     def handle_kick_user_from_group_callback(call):

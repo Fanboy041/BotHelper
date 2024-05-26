@@ -15,7 +15,7 @@ def send_channel_callback(call, bot):
     bot.edit_message_text(chat_id=call.message.chat.id,
                     message_id=call.message.message_id,
                     text="Do you want to attach buttons to the message? (yes/no)", reply_markup=keyboard)
-    
+
     @bot.callback_query_handler(func=lambda call: call.data.startswith('send_confirm_'))
     def handle_view_channel_yes_callback(call):
 
@@ -48,7 +48,7 @@ def send_channel_callback(call, bot):
                 bot.delete_message(message.chat.id, message.id)
                 bot.send_message(message.chat.id, "Send the button text and website separated by a dash (-), <b>Website should be as a Url</b>", parse_mode='HTML')
                 bot.register_next_step_handler(call.message, process_yes_button, call, bot, channel_id)
-        else: 
+        else:
             bot.delete_message(message.chat.id, answer_message)
             bot.delete_message(message.chat.id, message.id)
             bot.send_message(call.message.chat.id, "Send the button text and website separated by a dash (-)")
@@ -71,7 +71,6 @@ def process_sent_message1(message, bot, channel_id, keyboard1, channel_button):
         bot.send_message(channel_id, message.text, reply_markup=keyboard1)
         bot.answer_callback_query(call.id, "Message sent successfully.")
         bot.delete_message(call.message.chat.id, call.message.id)
-    
 
 def process_sent_message2(message, bot, channel_id):
     answer_message = message.id - 1

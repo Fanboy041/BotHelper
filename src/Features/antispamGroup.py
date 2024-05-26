@@ -9,7 +9,7 @@ def antispam_group(message, bot):
 
         if get_group(group_id)["is_antispam"] == True:
             if bot.get_me().id in (admin.user.id for admin in administrators):
-            
+
                 if message.from_user.id not in (admin.user.id for admin in administrators):
                     if message.text.lower().startswith('http') or message.entities is not None:
 
@@ -35,7 +35,7 @@ def antispam_group(message, bot):
                                 if get_admin(adminId) is not None or get_user(adminId) is not None or owner_collection.find_one({"chat_id": adminId}) is not None:
                                     if len(entities_urls) > 0:
                                         bot.send_message(adminId, f"#Deleted_URL message:\n\nGroup: <b>'{message.chat.title}'</b>\nSender: <b>'{message.from_user.first_name}'</b>\nMessage: <i>'{entities_urls}'</i>\n\nMake your decision if you want to keep the message or not ?", reply_markup=keyboard, parse_mode='HTML')
-                                    else:                           
+                                    else:
                                         bot.send_message(adminId, f"#Deleted_URL message:\n\nGroup: <b>'{message.chat.title}'</b>\nSender: <b>'{message.from_user.first_name}'</b>\nMessage: <i>'{message.text}'</i>\n\nMake your decision if you want to keep the message or not ?", reply_markup=keyboard, parse_mode='HTML')
                                 else:
                                     bot.send_message(message.chat.id, f"[{adminId}](tg://user?id={adminId}) @[{adminUsername}]: you are a Admin in this Group, can you start this Bot [{bot.get_me().id}](tg://user?id={bot.get_me().id}) @[{bot.get_me().username}] to approve or disallow the links that the users send" , parse_mode = "Markdown")

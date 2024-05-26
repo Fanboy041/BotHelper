@@ -1,4 +1,3 @@
-# showAdminsCallback.py
 from telebot import types
 from Database.MongoDB import get_groups
 

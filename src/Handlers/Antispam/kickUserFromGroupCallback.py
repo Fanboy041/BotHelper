@@ -19,7 +19,7 @@ def kick_user_from_group_callback(bot, call):
         if admin.status == "creator":
             owner = admin.user.id
 
-    bot.delete_message(call.message.chat.id, call.message.message_id)                   
+    bot.delete_message(call.message.chat.id, call.message.message_id)
 
     if user_id not in userIds:
         bot.send_message(call.message.chat.id, "Done!")

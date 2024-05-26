@@ -14,7 +14,7 @@ load_dotenv()
 bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
 
 try:
-    # Logging configuration 
+    # Logging configuration
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     # RotatingFileHandler
@@ -50,7 +50,7 @@ try:
             features[feature_name] = feature
 
 
-    logging.info("Main script runs successfully, Bot is working") 
+    logging.info("Main script runs successfully, Bot is working")
 
     # New joined chat member handler
     @bot.message_handler(content_types=['new_chat_members'])
@@ -84,7 +84,7 @@ try:
 
     # Handle the urls that sent in groups
     @bot.message_handler(content_types=['text'])
-    def handle_antispam_group(message):        
+    def handle_antispam_group(message):
         if 'antispamGroup' in features:
             features['antispamGroup'].antispam_group(message, bot)
 
