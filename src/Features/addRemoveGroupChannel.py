@@ -9,12 +9,10 @@ def add_remove_group_channel(chat_member_update: ChatMemberUpdated, bot):
     chatType = chat_member_update.chat.type
     if chatType == 'channel':
         if status == 'member':
-            print(status)
             save_channel(fullname, username, id)
             bot.send_message(id, f"I'm glad to join <b>{fullname}</b>!\n\nThank you for interacting with our Telegram bot. We're excited to have you on board 🌹\n\nPlease make sure I'm admin in your Channel so I can assist you.", parse_mode='HTML')
 
         elif status == 'left':
-            print(status)
             delete_channel(id)
 
     elif chatType == 'supergroup':
