@@ -74,5 +74,15 @@ def process_sent_message2(message, bot, channel_id):
     answer_message = message.id - 1
     bot.delete_message(message.chat.id, answer_message)
     bot.delete_message(message.chat.id, message.id)
-    bot.send_message(channel_id, message.text)
-    bot.send_message(message.chat.id, "Message sent successfully.")
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
+    approve_button = types.InlineKeyboardButton("Approve sending?", callback_data=f'approve_sending2_{channel_id}')
+    keyboard.add(approve_button)
+    bot.send_message(message.chat.id, message.text, reply_markup=keyboard)
+
+    @bot.callback_query_handler(func=lambda call: call.data.startswith('approve_sending2_'))
+    def handle_approve_sending_callback(call):
+        parts = call.data.split('_')
+        channel_id = parts[2]
+        bot.send_message(channel_id, message.text)
+        bot.answer_callback_query(call.id, "Message sent successfully.")
+        bot.delete_message(call.message.chat.id, call.message.id)
