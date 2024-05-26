@@ -44,10 +44,13 @@ def send_channel_callback(call, bot):
                 bot.register_next_step_handler(message, process_sent_message1, bot, channel_id, keyboard1, channel_button)
 
             else:
-                bot.send_message(message.chat.id, "Website should be as a Url")
+                bot.delete_message(message.chat.id, answer_message)
+                bot.delete_message(message.chat.id, message.id)
+                bot.send_message(message.chat.id, "Send the button text and website separated by a dash (-), <b>Website should be as a Url</b>", parse_mode='HTML')
                 bot.register_next_step_handler(call.message, process_yes_button, call, bot, channel_id)
         else: 
-
+            bot.delete_message(message.chat.id, answer_message)
+            bot.delete_message(message.chat.id, message.id)
             bot.send_message(call.message.chat.id, "Send the button text and website separated by a dash (-)")
             bot.register_next_step_handler(call.message, process_yes_button, call, bot, channel_id)
 
