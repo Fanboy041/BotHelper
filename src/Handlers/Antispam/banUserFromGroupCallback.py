@@ -19,7 +19,7 @@ def ban_user_from_group_callback(bot, call):
         if admin.status == "creator":
             owner = admin.user.id
 
-    bot.delete_message(call.message.chat.id, call.message.message_id)                   
+    bot.delete_message(call.message.chat.id, call.message.message_id)
 
     if user_id not in userIds:
 
@@ -35,7 +35,7 @@ def ban_user_from_group_callback(bot, call):
     else:
         bot.send_message(owner, f"i want to ban this admin {user_first_name} '{user_id}', because of sending this Link {text} in this Group {group_name}")
 
-    
+
     # ban user from group for half an hour button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('half_hour'))
     def handle_half_an_hour_callback(call):
@@ -73,10 +73,10 @@ def ban_and_delete_message_if_success(call, bot, group_id, user_id, admin, group
                                                 can_pin_messages= False,
                                                 can_manage_topics= False
                                                 )
-    
+
     bot.restrict_chat_member(group_id, user_id, until_date= int((datetime.now() + time).timestamp()), permissions=chatPermissions)
-    bot.delete_message(call.message.chat.id, call.message.message_id) 
+    bot.delete_message(call.message.chat.id, call.message.message_id)
     bot.send_message(call.message.chat.id, "Done!")
-    
+
     if get_admin(admin.user.id) is not None or get_user(admin.user.id) is not None or owner_collection.find_one({"chat_id": admin.user.id}) is not None:
             bot.send_message(user_id, f"you banned from this group {group_name} by sending this Link: \n [{text}]")

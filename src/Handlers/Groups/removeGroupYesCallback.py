@@ -14,7 +14,7 @@ def remove_group_yes_callback(bot, call):
 
             bot.send_message(call.message.chat.id, f"group with ID {group_id} removed successfully.")
 
-        
+
         bot.leave_chat(group_id)
         delete_group(group_id)
     else:

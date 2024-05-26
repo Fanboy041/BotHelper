@@ -20,7 +20,7 @@ def remove_user_callback(call, bot):
     else:
         # There is no admins
         bot.send_message(call.message.chat.id, "There are no users.")
-        
+
     # Remove user confirm button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_user_confirm_'))
     def handle_remove_user_confirm_callback(call):

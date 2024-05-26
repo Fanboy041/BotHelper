@@ -13,7 +13,7 @@ def settings_command(message, bot):
 
         # Check if the user is owner
         owner = get_owner()
-        admin = get_admin(user_id) 
+        admin = get_admin(user_id)
         user = get_user(user_id)
 
         # Create inline keyboard and locks the row width to 2
@@ -70,4 +70,4 @@ def settings_command(message, bot):
 
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
     def handle_back_to_settings_menu_callback(call):
-        back_to_settings_menu_callback(call, bot) 
+        back_to_settings_menu_callback(call, bot)

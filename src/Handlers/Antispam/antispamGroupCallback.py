@@ -21,8 +21,8 @@ def antispam_group_callback(call, bot):
         bot.edit_message_text("Select a group to activate/deactivate antispam:", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')
 
     else:
-        bot.send_message(call.message.chat.id, "There are no groups to edit the antispam function in it.") 
- 
+        bot.send_message(call.message.chat.id, "There are no groups to edit the antispam function in it.")
+
     # antispam group confirm button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('antispam_group_confirm_'))
     def handle_antispam_group_confirm_callback(call):

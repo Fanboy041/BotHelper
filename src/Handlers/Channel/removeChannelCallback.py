@@ -18,7 +18,7 @@ def remove_channel_callback(call, bot):
         bot.edit_message_text("Select a channel to remove:", call.message.chat.id, call.message.message_id, reply_markup=keyboard)
 
     else:
-        bot.send_message(call.message.chat.id, "There are no Channels.") 
+        bot.send_message(call.message.chat.id, "There are no Channels.")
 
     # Remove channel confirm button
     @bot.callback_query_handler(func=lambda call: call.data.startswith('remove_channel_confirm_'))
