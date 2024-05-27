@@ -122,8 +122,7 @@ dns.resolver.default_resolver.nameservers=['8.8.8.8']
   │    ├── sendChannelCallback.py
   │    ├── sendMessageMenuCallback.py
   │    ├── showChannelsCallback.py
-  │    ├── showGroupsCallback.py
-  │    └── viewChannelCallback.py
+  │    └── showGroupsCallback.py
   ├── main.py
   └── watcher.py
 ```
