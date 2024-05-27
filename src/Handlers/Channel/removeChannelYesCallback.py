@@ -1,5 +1,5 @@
 from Database.MongoDB import get_channel, delete_channel
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+from Handlers.Back.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def remove_channel_yes_callback(call, bot):
     parts = call.data.split('_')

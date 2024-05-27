@@ -1,5 +1,5 @@
 from Database.MongoDB import get_group, delete_group
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+from Handlers.Back.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def remove_group_yes_callback(bot, call):
     parts = call.data.split('_')

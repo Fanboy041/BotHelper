@@ -86,6 +86,7 @@ dns.resolver.default_resolver.nameservers=['8.8.8.8']
 ├── requirements.txt
 └── src
   ├── Commands
+  │  ├── optionsCommand.py
   │  ├── settingsCommand.py
   │  └── startCommand.py
   ├── Database
@@ -104,28 +105,25 @@ dns.resolver.default_resolver.nameservers=['8.8.8.8']
   │  │  ├── antispamGroupDecisionCallback.py
   │  │  ├── banUserFromGroupCallback.py
   │  │  └── kickUserFromGroupCallback.py
+  │  ├── Back
+  │  │  ├── backToOptionsMenuCallback.py
+  │  │  └── backToSettingsMenuCallback.py
   │  ├── Channel
   │  │  ├── channelsMenuCallback.py
   │  │  ├── removeChannelCallback.py
   │  │  ├── removeChannelConfirmCallback.py
-  │  │  ├── removeChannelYesCallback.py
-  │  │  ├── sendChannelCallback.py
-  │  │  ├── showChannelsCallback.py
-  │  │  └── viewChannelCallback.py
+  │  │  └── removeChannelYesCallback.py
   │  ├── Groups
   │  │  ├── groupsMenuCallback.py
   │  │  ├── removeGroupCallback.py
   │  │  ├── removeGroupConfirmCallback.py
-  │  │  ├── removeGroupYesCallback.py
-  │  │  └── showGroupsCallback.py
-  │  ├── Settings
-  │  │  └── backToSettingsMenuCallback.py
-  │  └── Users
-  │    ├── removeUserCallback.py
-  │    ├── removeUserConfirmCallback.py
-  │    ├── removeUserYesCallback.py
-  │    ├── showUsersCallback.py
-  │    └── usersMenuCallback.py
+  │  │  └── removeGroupYesCallback.py
+  │  └── Message
+  │    ├── sendChannelCallback.py
+  │    ├── sendMessageMenuCallback.py
+  │    ├── showChannelsCallback.py
+  │    ├── showGroupsCallback.py
+  │    └── viewChannelCallback.py
   ├── main.py
   └── watcher.py
 ```
