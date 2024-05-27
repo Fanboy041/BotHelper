@@ -55,6 +55,10 @@ To start the bot, run:
 ```
 python ./src/main.py
 ```
+Or to start with a watcher that restarts the bot if script modified, run:
+```
+python ./src/watcher.py ./src/main.py
+```
 If you're using Termux, you need to add the following to the main script:
 ```
 import dns.resolver
@@ -75,57 +79,55 @@ dns.resolver.default_resolver.nameservers=['8.8.8.8']
 ### Directory Layout
 
 ```
-├── src
-│    ├── Commands
-│    │    ├── settingsCommand.py
-│    │    └── startCommand.py
-│    ├── Database
-│    │    └── MongoDB.py
-│    ├── Features
-│    │    ├── addGroupChatId.py
-│    │    ├── antispamGroup.py
-│    │    └── deleteGroupChatId.py
-│    ├── Handlers
-│    │    ├── Admins
-│    │    │    ├── addAdminCallback.py
-│    │    │    ├── adminsMenuCallback.py
-│    │    │    ├── removeAdminCallback.py
-│    │    │    ├── removeAdminConfirmCallback.py
-│    │    │    ├── removeAdminYesCallback.py
-│    │    │    └── showAdminsCallback.py
-│    │    ├── Antispam
-│    │    │    ├── antispamGroupActicationCallback.py
-│    │    │    ├── antispamGroupCallback.py
-│    │    │    ├── antispamGroupConfirmCallback.py
-│    │    │    ├── antispamGroupDecisionCallback.py
-│    │    │    ├── banUserFromGroupCallback.py
-│    │    │    └── kickUserFromGroupCallback.py
-│    │    ├── Channel
-│    │    │    ├── addChannelCallback.py
-│    │    │    ├── channelsMenuCallback.py
-│    │    │    ├── removeChannelCallback.py
-│    │    │    ├── removeChannelConfirmCallback.py
-│    │    │    ├── removeChannelYesCallback.py
-│    │    │    └── showChannelsCallback.py
-│    │    ├── Groups
-│    │    │    ├── groupsMenuCallback.py
-│    │    │    ├── removeGroupCallback.py
-│    │    │    ├── removeGroupConfirmCallback.py
-│    │    │    ├── removeGroupYesCallback.py
-│    │    │    └── showGroupsCallback.py
-│    │    ├── Settings
-│    │    │    └── backToSettingsMenuCallback.py
-│    │    └── Users
-│    │         ├── removeUserCallback.py
-│    │         ├── removeUserConfirmCallback.py
-│    │         ├── removeUserYesCallback.py
-│    │         ├── showUsersCallback.py
-│    │         └── antispamGroupDecisionCallback.py
-│    └── main.py
+├── .env
 ├── .gitignore
 ├── LICENSE
-├── README.md
-└── requirements.txt
+├── Readme.md
+├── requirements.txt
+└── src
+  ├── Commands
+  │  ├── settingsCommand.py
+  │  └── startCommand.py
+  ├── Database
+  │  └── MongoDB.py
+  ├── Features
+  │  ├── addRemoveGroupChannel.py
+  │  ├── antispamGroup.py
+  │  └── muteComment.py
+  ├── Handlers
+  │  ├── Admins
+  │  │  └── adminsMenuCallback.py
+  │  ├── Antispam
+  │  │  ├── antispamGroupActivationCallback.py
+  │  │  ├── antispamGroupCallback.py
+  │  │  ├── antispamGroupConfirmCallback.py
+  │  │  ├── antispamGroupDecisionCallback.py
+  │  │  ├── banUserFromGroupCallback.py
+  │  │  └── kickUserFromGroupCallback.py
+  │  ├── Channel
+  │  │  ├── channelsMenuCallback.py
+  │  │  ├── removeChannelCallback.py
+  │  │  ├── removeChannelConfirmCallback.py
+  │  │  ├── removeChannelYesCallback.py
+  │  │  ├── sendChannelCallback.py
+  │  │  ├── showChannelsCallback.py
+  │  │  └── viewChannelCallback.py
+  │  ├── Groups
+  │  │  ├── groupsMenuCallback.py
+  │  │  ├── removeGroupCallback.py
+  │  │  ├── removeGroupConfirmCallback.py
+  │  │  ├── removeGroupYesCallback.py
+  │  │  └── showGroupsCallback.py
+  │  ├── Settings
+  │  │  └── backToSettingsMenuCallback.py
+  │  └── Users
+  │    ├── removeUserCallback.py
+  │    ├── removeUserConfirmCallback.py
+  │    ├── removeUserYesCallback.py
+  │    ├── showUsersCallback.py
+  │    └── usersMenuCallback.py
+  ├── main.py
+  └── watcher.py
 ```
 
 ## Documentation
