@@ -1,6 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_channels
-from Handlers.Channel.viewChannelCallback import view_channel_callback
+from .viewChannelCallback import view_channel_callback
 
 def show_channels_callback(call, bot):
 
@@ -12,7 +12,7 @@ def show_channels_callback(call, bot):
                                                  callback_data=f'view_channel_{channel["chat_id"]}')
             keyboard.add(button)
 
-        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='channels_menu')
+        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='send_message_menu')
         keyboard.add(back_button)
 
         bot.edit_message_text(

@@ -15,7 +15,7 @@ def antispam_group_callback(call, bot):
             button = types.InlineKeyboardButton(f"{group['full_name']} - status: {status}", callback_data=f'antispam_group_confirm_{group["chat_id"]}')
             keyboard.add(button)
 
-        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_settings_menu')
+        back_button = types.InlineKeyboardButton("Back 🔙", callback_data='back_to_options_menu')
         keyboard.add(back_button)
 
         bot.edit_message_text("Select a group to activate/deactivate antispam:", call.message.chat.id, call.message.message_id, reply_markup=keyboard, parse_mode='Markdown')

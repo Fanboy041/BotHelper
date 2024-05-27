@@ -76,6 +76,12 @@ try:
             commands['startCommand'].send_welcome(message, bot)
 
     # Settings command
+    @bot.message_handler(commands=['options'])
+    def handle_options_command(message):
+        if 'optionsCommand' in commands:
+            commands['optionsCommand'].options_command(message, bot)
+
+    # Settings command
     @bot.message_handler(commands=['settings'])
     def handle_settings_command(message):
         if 'settingsCommand' in commands:

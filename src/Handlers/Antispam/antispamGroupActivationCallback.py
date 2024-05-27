@@ -1,6 +1,6 @@
 
 from Database.MongoDB import get_group, group_collection
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+from Handlers.Back.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def antispam_group_activation_callback(bot, call):
     parts = call.data.split('_')

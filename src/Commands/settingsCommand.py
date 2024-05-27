@@ -3,9 +3,7 @@ from Database.MongoDB import get_owner, get_admin, get_user
 from Handlers.Admins.adminsMenuCallback import admins_callback
 from Handlers.Channel.channelsMenuCallback import channels_menu_callback
 from Handlers.Groups.groupsMenuCallback import groups_menu_callback
-from Handlers.Users.usersMenuCallback import users_menu_callback
-from Handlers.Antispam.antispamGroupCallback import antispam_group_callback
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+from Handlers.Back.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def settings_command(message, bot):
     if message.chat.type == "private":
@@ -21,20 +19,18 @@ def settings_command(message, bot):
         admins_button = types.InlineKeyboardButton("🥷🏼 Bot Admins", callback_data='admins_menu')
         channels_button = types.InlineKeyboardButton("🔈 Channels", callback_data='channels_menu')
         groups_button = types.InlineKeyboardButton("👥 Groups", callback_data='groups_menu')
-        users_button = types.InlineKeyboardButton("👤 Users", callback_data='users_menu')
-        antispam_button = types.InlineKeyboardButton("📨 Antispam", callback_data='antispam_group')
 
         if owner['chat_id'] == user_id:
             # Initial message with inline keyboard
-            keyboard.add(admins_button, channels_button, groups_button, users_button, antispam_button)
+            keyboard.add(admins_button, channels_button, groups_button)
 
-            bot.send_message(message.chat.id, "📊 Welcome to the settings menu:\n\n<i>🥷🏼 Bot Admins</i>: To manage the admins in this bot\n\n<i>🔈 Channels</i>: To manage the channels that the bot controls\n\n<i>👥 Groups</i>: To manage the groups that the bot controls\n\n<i>👤 Users</i>: To manage the users that they started the bot\n\n<i>📨 Antispam</i>: To activate/deactivate urls in your groups\n", reply_markup=keyboard, parse_mode='HTML')
+            bot.send_message(message.chat.id, "🎚 Welcome to the settings menu:\n\n<i>🥷🏼 Bot Admins</i>: To manage the admins in this bot\n\n<i>🔈 Channels</i>: To manage the channels that the bot controls\n\n<i>👥 Groups</i>: To manage the groups that the bot controls\n", reply_markup=keyboard, parse_mode='HTML')
 
         elif admin is not None:
             # Initial message with inline keyboard
-            keyboard.add(channels_button, groups_button, users_button, antispam_button)
+            keyboard.add(channels_button, groups_button)
 
-            bot.send_message(message.chat.id, "📊 Welcome to the settings menu:\n\n<i>🔈 Channels</i>: To manage the channels that the bot controls\n\n<i>👥 Groups</i>: To manage the groups that the bot controls\n\n<i>👤 Users</i>: To manage the users that they started the bot\n\n<i>📨 Antispam</i>: To activate/deactivate urls in your groups\n", reply_markup=keyboard, parse_mode='HTML')
+            bot.send_message(message.chat.id, "🎚 Welcome to the settings menu:\n\n<i>🔈 Channels</i>: To manage the channels that the bot controls\n\n<i>👥 Groups</i>: To manage the groups that the bot controls\n", reply_markup=keyboard, parse_mode='HTML')
 
         elif user is not None:
             bot.send_message(message.chat.id, "You are not authorized to use this command.")
@@ -57,16 +53,6 @@ def settings_command(message, bot):
     @bot.callback_query_handler(func=lambda call: call.data == 'groups_menu')
     def handle_group_callback(call):
         groups_menu_callback(call, bot)
-
-    # Users menu and back to users menu button
-    @bot.callback_query_handler(func=lambda call: call.data == 'users_menu')
-    def handle_user_menu_callback(call):
-        users_menu_callback(call, bot)
-
-    # Antispam group and back to Antispam group button
-    @bot.callback_query_handler(func=lambda call: call.data == 'antispam_group')
-    def handle_antispam_group_callback(call):
-        antispam_group_callback(call, bot)
 
     @bot.callback_query_handler(func=lambda call: call.data == 'back_to_settings_menu')
     def handle_back_to_settings_menu_callback(call):

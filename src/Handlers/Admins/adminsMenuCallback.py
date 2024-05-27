@@ -1,6 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_user, get_users, get_admin, get_admins, save_admin, delete_admin
-from Handlers.Settings.backToSettingsMenuCallback import back_to_settings_menu_callback
+from Handlers.Back.backToSettingsMenuCallback import back_to_settings_menu_callback
 
 def admins_callback(call, bot):
     keyboard = types.InlineKeyboardMarkup(row_width=2)

@@ -1,6 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_channel
-from Handlers.Channel.sendChannelCallback import send_channel_callback
+from Handlers.Message.sendChannelCallback import send_channel_callback
 
 def view_channel_callback(call, bot):
     channel_id = int(call.data.split('view_channel_')[1])
