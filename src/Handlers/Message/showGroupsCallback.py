@@ -10,7 +10,7 @@ def show_groups_callback(call, bot):
     if len(list(get_groups())) > 0:
         groups = get_groups()
         for group in groups:
-            button = types.InlineKeyboardButton(f"{group['full_name']}", callback_data=f'view_group_{group["chat_id"]}')
+            button = types.InlineKeyboardButton(f"{group['full_name']}", callback_data=f'send_group_{group["chat_id"]}')
             keyboard.add(button)
 
         keyboard.add(back_button)

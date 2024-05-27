@@ -9,7 +9,7 @@ def send_channel_callback(call, bot):
 
     yes_button = types.InlineKeyboardButton("Yes ✅", callback_data=f'send_confirm_yes_{channel["chat_id"]}')
     no_button = types.InlineKeyboardButton("No ❌", callback_data=f'send_confirm_no_{channel["chat_id"]}')
-    back_button = types.InlineKeyboardButton("Back 🔙", callback_data=f'view_channel_{channel["chat_id"]}')
+    back_button = types.InlineKeyboardButton("Back 🔙", callback_data='show_channels')
     keyboard.add(yes_button, no_button, back_button)
 
     bot.edit_message_text(chat_id=call.message.chat.id,
