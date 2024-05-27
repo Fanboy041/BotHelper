@@ -53,22 +53,21 @@ try:
     logging.info("Main script runs successfully, Bot is working")
 
     # New joined chat member handler
-    @bot.message_handler(content_types=['new_chat_members'])
-    def handle_add_group_chat_id(message):
-        if 'addGroupChatId' in features:
-            features['addGroupChatId'].add_group_chat_id(message, bot)
-
     # Left chat member handler
     @bot.message_handler(content_types=['left_chat_member'])
-    def handle_add_group_chat_id(message):
-        if 'deleteGroupChatId' in features:
-            features['deleteGroupChatId'].delete_group_chat_id(message, bot)
+    @bot.message_handler(content_types=['new_chat_members'])
+    def handel_mute_comment(message):
+        if 'muteComment' in features:
+            features['muteComment'].mute_comment(message, bot)
 
     # New channel add handler
+    # old channel remove handler
+    # New group add handler
+    # old group remove handler
     @bot.my_chat_member_handler()
-    def handle_add_channel_chat_id(chat_member_update: ChatMemberUpdated):
-        if 'addChannelChatId' in features:
-            features['addChannelChatId'].add_channel_chat_id(chat_member_update, bot)
+    def handle_add_remove_group_channel(chat_member_update: ChatMemberUpdated):
+        if 'addRemoveGroupChannel' in features:
+            features['addRemoveGroupChannel'].add_remove_group_channel(chat_member_update, bot)
 
     # Start command
     @bot.message_handler(commands=['start'])
