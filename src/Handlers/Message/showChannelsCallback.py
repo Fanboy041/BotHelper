@@ -7,6 +7,9 @@ def show_channels_callback(call, bot):
     if len(list(get_channels())) > 0:
         channels = get_channels()
         keyboard = types.InlineKeyboardMarkup(row_width=1)
+        channelsButton = types.InlineKeyboardButton("All Channels",
+                                                 callback_data=f'send_channel_All Channels')
+        keyboard.add(channelsButton)
         for channel in channels:
             button = types.InlineKeyboardButton(f"{channel['full_name']}",
                                                  callback_data=f'send_channel_{channel["chat_id"]}')
