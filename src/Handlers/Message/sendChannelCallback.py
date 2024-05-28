@@ -1,5 +1,6 @@
 from telebot import types
 from Database.MongoDB import get_channels
+from Handlers.Back.backToOptionsMenuCallback import back_to_options_menu_callback
 
 def send_channel_callback(call, bot):
     if call.data.split('_')[-1] != "All Channels":
@@ -38,9 +39,9 @@ def send_channel_callback(call, bot):
             websiteCount = len(messageText)
             website = messageText[1]
             for i in range(2, websiteCount):
-                website = (website + '-' + messageText[i]).strip()
-            if website.lower().startswith('http'):
-                channel_button = types.InlineKeyboardButton(button_text, url=website)
+                website = website + '-' + messageText[i]
+            if website.strip().lower().startswith('http'):
+                channel_button = types.InlineKeyboardButton(button_text, url=website.strip())
                 keyboard1.add(channel_button)
 
                 bot.send_message(message.chat.id, "What title would you like to use for your message?")
@@ -56,7 +57,6 @@ def send_channel_callback(call, bot):
             bot.delete_message(message.chat.id, message.id)
             bot.send_message(call.message.chat.id, "Send the button text and website separated by a dash (-)")
             bot.register_next_step_handler(call.message, process_yes_button, call, bot, channel_id)
-
 
 def process_sent_message(message, bot, channel_id, keyboard1, channel_button, withButton):
     keyboard = types.InlineKeyboardMarkup(row_width=1)
@@ -90,3 +90,4 @@ def process_sent_message(message, bot, channel_id, keyboard1, channel_button, wi
             else:
                 bot.send_message(channel_id, call.message.text)
         bot.answer_callback_query(call.id, "Message sent successfully.")
+        back_to_options_menu_callback(call, bot)
